@@ -263,6 +263,27 @@ export default function Content() {
                     <ListItemText primary='MenuThree' sx={{ opacity: open ? 1 : 0, marginRight: "-70px" }} />
                 </ListItemButton>} {...a11yProps(0)} >
                 </Tab>
+                <Tab label={<ListItemButton
+                key='Add user'
+                sx={{
+                    minHeight: 50,
+                    minWidth: 77,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                }}
+                >
+                    <ListItemIcon
+                        sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                        }}
+                    >
+                        <AssignmentIcon /> 
+                    </ListItemIcon>
+                    <ListItemText primary='MenuFour' sx={{ opacity: open ? 1 : 0, marginRight: "-70px" }} />
+                </ListItemButton>} {...a11yProps(0)} >
+                </Tab>
                 </Tabs>
             <Divider />
         </List>
