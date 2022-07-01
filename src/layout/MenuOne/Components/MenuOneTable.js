@@ -130,9 +130,9 @@ export default function MenuOneTable() {
   return (
     <div className={s.MenuOneTable}>
       <TableContainer className={s.Paper} component={Paper}>
-        <Table aria-label="collapsible table">
+        <Table aria-label="collapsible table" className={s.Paperbody}>
           <TableHead>
-            <TableRow>
+            <TableRow className={s.Paperhead}>
               <TableCell />
               <TableCell>Dessert (100g serving)</TableCell>
               <TableCell align="right">Calories</TableCell>

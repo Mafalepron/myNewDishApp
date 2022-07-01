@@ -3,7 +3,7 @@ import MenuFourTable from './Components/MenuFourTable';
 import { MyContext } from '../../functions/context';
 
 const MenuFour = () => {
-    const { axiGetRemains, products, remains } = useContext(MyContext);
+    const { axiGetRemains, state } = useContext(MyContext);
 
 
 
@@ -15,7 +15,7 @@ const MenuFour = () => {
 
     return(
         <div>
-            <MenuFourTable products={products} remains={remains}/>
+            <MenuFourTable products={state.products} remains={state.remains}/>
         </div>
 
     )

@@ -3,6 +3,10 @@
     width: 1000px;
 }
 
-.Paper {
-    background-color: #FFF6A0;
+.Paperhead {
+    background-color: #FFC2BB;
+}
+
+.Paperbody {
+    background-color: #F0FFB9;
 }
