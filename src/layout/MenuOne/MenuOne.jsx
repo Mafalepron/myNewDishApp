@@ -3,7 +3,7 @@ import MenuOneTable from './Components/MenuOneTable';
 import { MyContext } from '../../functions/context';
 
 const MenuOne = () => {
-    const { axiGetRemains, products, remains } = useContext(MyContext);
+    const { axiGetRemains, state } = useContext(MyContext);
 
 
 
@@ -15,7 +15,7 @@ const MenuOne = () => {
 
     return(
         <div>
-            <MenuOneTable products={products} remains={remains}/>
+            <MenuOneTable products={state.products} remains={state.remains}/>
         </div>
 
     )

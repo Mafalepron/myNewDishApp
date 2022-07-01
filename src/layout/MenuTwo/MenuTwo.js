@@ -4,7 +4,7 @@ import { MyContext } from '../../functions/context';
 
 
 const MenuTwo = () => {
-    const { axiGetRemains, products, remains } = useContext(MyContext);
+    const { axiGetRemains, state } = useContext(MyContext);
 
 
 
@@ -16,7 +16,7 @@ const MenuTwo = () => {
 
     return(
         <div>
-            <MenuTwoTable products={products} remains={remains}/>
+            <MenuTwoTable products={state.products} remains={state.remains}/>
         </div>
 
     )
