@@ -30,24 +30,24 @@ const AddUserModal = () => {
   return (
     <div>
       <ListItemButton
-              key='add User'
-              sx={{
-                minHeight: 48,
-                px: 2.5,
-              }}
-              onClick={handleOpen}
-            >
-                <ListItemIcon
-                    sx={{
-                    minWidth: 0,
-                    justifyContent: 'center',
-                    }}
-                >
-                    <PersonAddAltIcon />
-                </ListItemIcon>
+        key='add User'
+        sx={{
+          minHeight: 48,
+          px: 2.5,
+        }}
+        onClick={handleOpen}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            justifyContent: 'center',
+          }}
+        >
+          <PersonAddAltIcon />
+        </ListItemIcon>
                 &nbsp;
-                <h4>add user</h4>
-            </ListItemButton>
+        <h4>add user</h4>
+      </ListItemButton>
       <Modal
         keepMounted
         open={open}
@@ -67,7 +67,7 @@ const AddUserModal = () => {
       </Modal>
     </div>
   );
-}
+};
 
 
-export { AddUserModal }
+export { AddUserModal };

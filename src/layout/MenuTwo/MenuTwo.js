@@ -4,23 +4,23 @@ import { MyContext } from '../../functions/context';
 
 
 const MenuTwo = () => {
-    const { axiGetRemains, state } = useContext(MyContext);
+  const { axiGetRemains } = useContext(MyContext);
 
 
 
 
 
-// useEffect(() => { 
-//     axiGetRemains() 
-// }, [] );
+  // useEffect(() => { 
+  //     axiGetRemains() 
+  // }, [] );
 
-    return(
-        <div>
-            <MenuTwoTable products={state.products} remains={state.remains}/>
-        </div>
+  return(
+    <div>
+      <MenuTwoTable/>
+    </div>
 
-    )
-}
+  );
+};
 
 
 export { MenuTwo };

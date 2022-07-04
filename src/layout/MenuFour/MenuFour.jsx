@@ -3,23 +3,20 @@ import MenuFourTable from './Components/MenuFourTable';
 import { MyContext } from '../../functions/context';
 
 const MenuFour = () => {
-    const { axiGetRemains, state } = useContext(MyContext);
+  const context = useContext(MyContext);
 
 
+  // useEffect(() => { 
+  //     context.axiGetRemains()
+  // }, [] );
 
+  return(
+    <div>
+      <MenuFourTable/>
+    </div>
 
-
-// useEffect(() => { 
-//     axiGetRemains()
-// }, [] );
-
-    return(
-        <div>
-            <MenuFourTable products={state.products} remains={state.remains}/>
-        </div>
-
-    )
-}
+  );
+};
 
 
 export { MenuFour };

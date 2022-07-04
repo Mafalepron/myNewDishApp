@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import s from './MenuOneTable.module.css'
+import s from './MenuOneTable.module.css';
+import { MyContext } from '../../../functions/context';
 
 function createData(name, calories, fat, carbs, protein, price) {
   return {
@@ -127,6 +128,9 @@ const rows = [
 ];
 
 export default function MenuOneTable() {
+  const context = React.useContext(MyContext);
+  //context.products
+  //context.remains
   return (
     <div className={s.MenuOneTable}>
       <TableContainer className={s.Paper} component={Paper}>

@@ -23,7 +23,7 @@ import { MenuOne } from './MenuOne/MenuOne';
 import { MenuTwo } from './MenuTwo/MenuTwo';
 import { MenuThree } from './MenuThree/MenuThree';
 import { MenuFour } from './MenuFour/MenuFour';
-import { AddUserModal } from '../components/authorization/addUserModal'
+import { AddUserModal } from '../components/authorization/addUserModal';
 
 
 // начало табменю
@@ -33,39 +33,39 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const { children, value, index, ...other } = props;
   
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`vertical-tabpanel-${index}`}
-        aria-labelledby={`vertical-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
   
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+  
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
   };
-  
-  function a11yProps(index) {
-    return {
-      id: `vertical-tab-${index}`,
-      'aria-controls': `vertical-tabpanel-${index}`,
-    };
-  }
+}
 
-  //конец табменю
+//конец табменю
 
 
 const drawerWidth = 240;
@@ -136,13 +136,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Content() {
-    //табы
-    const [value, setValue] = React.useState(0);
+  //табы
+  const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-        };
-    //конец табов
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+  //конец табов
 
 
   const theme = useTheme();
@@ -180,134 +180,134 @@ export default function Content() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-        { open ? <AddUserModal />
-                : '' }
+          { open ? <AddUserModal />
+            : '' }
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-            <Tabs
-                orientation="vertical"
-                // value={value}
-                onChange={handleChange}
+          <Tabs
+            orientation="vertical"
+            // value={value}
+            onChange={handleChange}
                 
+          >
+            <Tab label={
+              <ListItemButton
+                key='Статус'
+                // sx={{
+                //     minHeight: 48,
+                //     justifyContent: open ? 'initial' : 'center',
+                //     px: 2.5,
+                // }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'left',
+                  }}
+                >
+                  <CheckCircleOutlineIcon /> 
+                </ListItemIcon>
+                <ListItemText primary='MenuOne' sx={{ opacity: open ? 1 : 0, marginRight: '-50px'}} />
+              </ListItemButton>
+            } {...a11yProps(0)} >
+                    
+            </Tab>
+            <Tab label={
+              <ListItemButton
+                key='БАП'
+                sx={{
+                  display: 'flex',
+                  minHeight: 50,
+                  minWidth: 77,
+                  justifyContent: open ? 'initial' : 'left',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <TrackChangesIcon /> 
+                </ListItemIcon>
+                <ListItemText primary='MenuTwo' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
+              </ListItemButton>
+            } {...a11yProps(0)} >
+                    
+            </Tab>           
+            <Tab label={<ListItemButton
+              key='Add user'
+              sx={{
+                minHeight: 50,
+                minWidth: 77,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
             >
-                <Tab label={
-                    <ListItemButton
-                    key='Статус'
-                    // sx={{
-                    //     minHeight: 48,
-                    //     justifyContent: open ? 'initial' : 'center',
-                    //     px: 2.5,
-                    // }}
-                >
-                        <ListItemIcon
-                            sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'left',
-                            }}
-                        >
-                            <CheckCircleOutlineIcon /> 
-                        </ListItemIcon>
-                        <ListItemText primary='MenuOne' sx={{ opacity: open ? 1 : 0, marginRight: "-50px"}} />
-                    </ListItemButton>
-                    } {...a11yProps(0)} >
-                    
-                </Tab>
-                <Tab label={
-                    <ListItemButton
-                    key='БАП'
-                    sx={{
-                      display: 'flex',
-                        minHeight: 50,
-                        minWidth: 77,
-                        justifyContent: open ? 'initial' : 'left',
-                        px: 2.5,
-                    }}
-                    >
-                        <ListItemIcon
-                            sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                            }}
-                        >
-                            <TrackChangesIcon /> 
-                        </ListItemIcon>
-                        <ListItemText primary='MenuTwo' sx={{ opacity: open ? 1 : 0, marginRight: "-50px" }} />
-                    </ListItemButton>
-                } {...a11yProps(0)} >
-                    
-                </Tab>           
-                <Tab label={<ListItemButton
-                key='Add user'
+              <ListItemIcon
                 sx={{
-                    minHeight: 50,
-                    minWidth: 77,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
-                >
-                    <ListItemIcon
-                        sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                        }}
-                    >
-                        <AssignmentIcon /> 
-                    </ListItemIcon>
-                    <ListItemText primary='MenuThree' sx={{ opacity: open ? 1 : 0, marginRight: "-70px" }} />
-                </ListItemButton>} {...a11yProps(0)} >
-                </Tab>
-                <Tab label={<ListItemButton
-                key='Add user'
+              >
+                <AssignmentIcon /> 
+              </ListItemIcon>
+              <ListItemText primary='MenuThree' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+            </ListItemButton>} {...a11yProps(0)} >
+            </Tab>
+            <Tab label={<ListItemButton
+              key='Add user'
+              sx={{
+                minHeight: 50,
+                minWidth: 77,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                    minHeight: 50,
-                    minWidth: 77,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
-                >
-                    <ListItemIcon
-                        sx={{
-                        minWidth: 0,
-                        mr: open ? 3 : 'auto',
-                        justifyContent: 'center',
-                        }}
-                    >
-                        <AssignmentIcon /> 
-                    </ListItemIcon>
-                    <ListItemText primary='MenuFour' sx={{ opacity: open ? 1 : 0, marginRight: "-70px" }} />
-                </ListItemButton>} {...a11yProps(0)} >
-                </Tab>
-                </Tabs>
-            <Divider />
+              >
+                <AssignmentIcon /> 
+              </ListItemIcon>
+              <ListItemText primary='MenuFour' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+            </ListItemButton>} {...a11yProps(0)} >
+            </Tab>
+          </Tabs>
+          <Divider />
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-{/* табы */}
-                <Box
-                    sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
-                    >
-                    <TabPanel value={value} index={0}>
-                        <MenuOne />
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <MenuTwo />
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        <MenuThree />
-                    </TabPanel>
-                    <TabPanel value={value} index={3}>
-                        <MenuFour />
-                    </TabPanel>
-                    </Box>
-{/* табы */}
+        {/* табы */}
+        <Box
+          sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+        >
+          <TabPanel value={value} index={0}>
+            <MenuOne />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <MenuTwo />
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <MenuThree />
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            <MenuFour />
+          </TabPanel>
+        </Box>
+        {/* табы */}
       </Box>
     </Box>
   );

@@ -13,7 +13,8 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import s from './MenuThreeTable.module.css'
+import s from './MenuThreeTable.module.css';
+import { MyContext } from '../../../functions/context';
 
 function createData(name, calories, fat, carbs, protein, price) {
   return {
@@ -128,6 +129,8 @@ const rows = [
 ];
 
 export default function MenuThreeTable() {
+  const context = React.useContext(MyContext);
+  
   return (
     <div className={s.MenuThreeTable}>
       <TableContainer className={s.Paper} component={Paper}>
@@ -149,6 +152,6 @@ export default function MenuThreeTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      </div>
+    </div>
   );
 }
