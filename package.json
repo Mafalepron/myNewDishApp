@@ -30,7 +30,8 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
     "react-spring": "^9.4.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "4.44.2"
   },
   "scripts": {
     "start": "react-scripts start",
