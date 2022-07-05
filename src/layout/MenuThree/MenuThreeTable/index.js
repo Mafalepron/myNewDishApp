@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 
 import Paper from '@mui/material/Paper';
 
-import s from './MenuFourTable.module.css';
+import s from './index.module.css';
 
 import Row from './Row';
 import createData from './createData';

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext} from 'react';
-import MenuTwoTable from './Components/MenuTwoTable';
+import MenuTwoTable from './MenuTwoTable/index';
 import { MyContext } from '../../functions/context';
 
 

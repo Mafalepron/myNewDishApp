@@ -19,10 +19,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
-import { MenuOne } from './MenuOne/MenuOne';
-import { MenuTwo } from './MenuTwo/MenuTwo';
-import { MenuThree } from './MenuThree/MenuThree';
-import { MenuFour } from './MenuFour/MenuFour';
+import { MenuOne } from './MenuOne/index';
+import { MenuTwo } from './MenuTwo/index';
+import { MenuThree } from './MenuThree/index';
+import { MenuFour } from './MenuFour/index';
 import { AddUserModal } from '../components/authorization/addUserModal';
 
 
