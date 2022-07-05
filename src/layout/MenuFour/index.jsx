@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState} from 'react';
-import MenuFourTable from './Components/MenuFourTable';
+import MenuFourTable from './MenuFourTable';
 import { MyContext } from '../../functions/context';
 
 const MenuFour = () => {
