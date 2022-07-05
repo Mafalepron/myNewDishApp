@@ -6,11 +6,10 @@ function axi(url, method, params) {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded', 
-        //'Content-Type': 'application/json',
         'charset': 'utf-8',
-        //'Access-Control-Allow-Headers': '*',
-        //'Access-Control-Allow-Origin': '*',
-        //'ReferrerPolicy': 'unsafe-url'
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+        'ReferrerPolicy': 'unsafe-url'
       },
       url: 'http://pies.businessmod.ru/api/v1/' + url,
       data: {
