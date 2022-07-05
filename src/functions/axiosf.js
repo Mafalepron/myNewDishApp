@@ -11,7 +11,7 @@ function axi(url, method, params) {
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
         'ReferrerPolicy': 'unsafe-url'},
-      url: 'https://pies.businessmod.ru/api/v1/' + url,
+      url: 'http://pies.businessmod.ru/api/v1/' + url,
       data: {
         'jsonrpc': '2.0',
         'id': 1,
