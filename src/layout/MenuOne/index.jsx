@@ -3,12 +3,8 @@ import MenuOneTable from './MenuOneTable/index';
 import { MyContext } from '../../functions/context';
 
 const MenuOne = () => {
-  const { axiGetRemains } = useContext(MyContext);
 
 
-  // useEffect(() => { 
-  //     axiGetRemains()
-  // }, [] );
 
   return(
     <div>

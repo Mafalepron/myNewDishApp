@@ -17,16 +17,18 @@ class App extends React.Component {
       axiGetRemains: this.axiGetRemains
     };
   }
-  axiLogInCashier = ()=> {
+  axiLogInCashier = () => {
     axi('logInCashier.php', '', {name: this.state.name, password: this.state.password }).then((result) => {
       if (result.type === 'approved') {
         console.log('Данные подтверждены');
         this.setState({token: result.token});
         let newProducts = {};
         for (let product of result.products) {
-          newProducts = {...newProducts, product };
+          newProducts[product.id] = product;
         };
-        this.setState({products: newProducts});  
+        this.setState({products: newProducts}); 
+        console.log(result); 
+        this.axiGetRemains(result.token);
       } else if (result.type === 'no_authorized') {
         console.log('Вы не авторизованы');
       } else if (result.error === 'invalid_password'){
@@ -39,17 +41,21 @@ class App extends React.Component {
     );
   };
 
-  axiGetRemains = (data) => {
-    axi('getRemains.php', {token: this.state.token, password: this.state.password}).then((result) => { 
+  axiGetRemains = (authToken) => {
+    axi('getRemains.php', '', { token: this.state.token ? this.state.token : authToken}).then((result) => { 
       if (result.type === 'no_authorized') {
         console.log('авторизация не прошла');
       } else {
-        this.setState({token: ''});
-        this.setState({password: ''});
+        console.log('авторизация прошла');
+        // this.setState({token: ''});
+        // this.setState({password: ''});
       }
       this.setState({remains: result});
+      
+      console.log(this.state.products);
     }, 
     (e) => {
+      console.log(e);
     }
     );
   };

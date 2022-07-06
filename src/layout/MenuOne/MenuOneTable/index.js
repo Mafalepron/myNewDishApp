@@ -25,9 +25,13 @@ const rows = [
 ];
 
 export default function MenuOneTable() {
-  const context = React.useContext(MyContext);
-  //context.products
-  //context.remains
+  const { axiGetRemains, products, remains, token } = React.useContext(MyContext);
+
+  /* 
+  React.useEffect(() => { 
+    axiGetRemains();
+  }, [token] );
+ */
   return (
     <div className={s.MenuOneTable}>
       <TableContainer className={s.Paper} component={Paper}>
