@@ -23,7 +23,7 @@ const rows = [
   createData('еее рокк', 305, 3.7, 67, 4.3, 2.5),
 ];
 
-export default function MenuFourTable() {
+export default function EndRemainsTable() {
   const context = React.useContext(MyContext);
   //context.products
   //context.remains

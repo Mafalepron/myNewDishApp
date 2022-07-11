@@ -15,4 +15,4 @@ const MenuStartRemains = () => {
 };
 
 
-export { MenuStartRemains };
+export default MenuStartRemains;

@@ -1,22 +1,16 @@
 import React, {useEffect, useContext, useState} from 'react';
-import MenuFourTable from './MenuFourTable/index';
+import EndRemainsTable from './EndRemainsTable';
 import { MyContext } from '../../functions/context';
 
-const MenuFour = () => {
+const MenuEndRemains = () => {
   const context = useContext(MyContext);
-
-
-  // useEffect(() => { 
-  //     context.axiGetRemains()
-  // }, [] );
-
   return(
     <div>
-      <MenuFourTable/>
+      <EndRemainsTable/>
     </div>
 
   );
 };
 
 
-export { MenuFour };
+export default MenuEndRemains;

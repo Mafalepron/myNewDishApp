@@ -1,17 +1,17 @@
 import React, {useEffect, useContext} from 'react';
-import MenuThreeTable from './MenuThreeTable/index';
+import ReturnsGoodsTable from './ReturnsGoodsTable';
 import { MyContext } from '../../functions/context';
 
-const MenuThree = () => {
+const MenuReturnsGoods = () => {
 
 
   return(
     <div>
-      <MenuThreeTable/>
+      <ReturnsGoodsTable/>
     </div>
 
   );
 };
 
 
-export { MenuThree };
+export default MenuReturnsGoods;

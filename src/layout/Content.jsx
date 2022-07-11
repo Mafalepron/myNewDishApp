@@ -19,10 +19,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
-import { MenuStartRemains } from './MenuStartRemains';
-import { MenuTwo } from './MenuTwo';
-import { MenuThree } from './MenuThree';
-import { MenuFour } from './MenuFour';
+import MenuStartRemains from './MenuStartRemains';
+import MenuAcceptanceGoods from './MenuAcceptanceGoods';
+import MenuReturnsGoods from './MenuReturnsGoods';
+import MenuEndRemains from './MenuEndRemains';
 import { AddUserModal } from '../components/authorization/addUserModal';
 
 
@@ -246,7 +246,7 @@ export default function Content() {
                 >
                   <TrackChangesIcon /> 
                 </ListItemIcon>
-                <ListItemText primary='MenuTwo' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
+                <ListItemText primary='MenuAcceptanceGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
               </ListItemButton>
             } {...a11yProps(0)} >
                     
@@ -269,7 +269,7 @@ export default function Content() {
               >
                 <AssignmentIcon /> 
               </ListItemIcon>
-              <ListItemText primary='MenuThree' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+              <ListItemText primary='MenuReturnsGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
             </ListItemButton>} {...a11yProps(0)} >
             </Tab>
             <Tab label={<ListItemButton
@@ -290,7 +290,7 @@ export default function Content() {
               >
                 <AssignmentIcon /> 
               </ListItemIcon>
-              <ListItemText primary='MenuFour' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+              <ListItemText primary='MenuEndRemains' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
             </ListItemButton>} {...a11yProps(0)} >
             </Tab>
           </Tabs>
@@ -307,13 +307,13 @@ export default function Content() {
             <MenuStartRemains />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <MenuTwo />
+            <MenuAcceptanceGoods />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <MenuThree />
+            <MenuReturnsGoods />
           </TabPanel>
           <TabPanel value={value} index={3}>
-            <MenuFour />
+            <MenuEndRemains />
           </TabPanel>
         </Box>
         {/* табы */}

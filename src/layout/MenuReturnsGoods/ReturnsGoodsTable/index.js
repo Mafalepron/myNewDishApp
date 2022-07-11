@@ -15,10 +15,6 @@ import createData from './createData';
 import { MyContext } from '../../../functions/context';
 
 
-
-
-
-
 const rows = [
   createData('Водка', 159, 6.0, 24, 4.0, 3.99),
   createData('Пиво', 237, 9.0, 37, 4.3, 4.99),
@@ -27,7 +23,7 @@ const rows = [
   createData('Ноги', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function MenuThreeTable() {
+export default function ReturnsGoodsTable() {
   const context = React.useContext(MyContext);
   
   return (

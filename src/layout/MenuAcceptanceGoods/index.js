@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useContext} from 'react';
-import MenuTwoTable from './MenuTwoTable/index';
+import AcceptanceGoodsTable from './MenuTwoTable';
 import { MyContext } from '../../functions/context';
 
 
-const MenuTwo = () => {
+const MenuAcceptanceGoods = () => {
   const { axiGetRemains } = useContext(MyContext);
 
 
@@ -16,11 +16,11 @@ const MenuTwo = () => {
 
   return(
     <div>
-      <MenuTwoTable/>
+      <AcceptanceGoodsTable/>
     </div>
 
   );
 };
 
 
-export { MenuTwo };
+export default MenuAcceptanceGoods;
