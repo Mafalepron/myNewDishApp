@@ -1,14 +1,12 @@
 import React, {useEffect, useState, useContext} from 'react';
-import MenuOneTable from './StartRemainsTable/index';
+import StartRemainsTable from './StartRemainsTable';
 import { MyContext } from '../../functions/context';
 
 const MenuStartRemains = () => {
 
-
-
   return(
     <div>
-      <MenuOneTable/>
+      <StartRemainsTable/>
     </div>
 
   );

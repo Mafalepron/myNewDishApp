@@ -23,7 +23,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function MenuThreeTable() {
+export default function AcceptanceGoodsTable() {
   const context = React.useContext(MyContext);
   return (
     <div className={style.MenuTwoTable}>

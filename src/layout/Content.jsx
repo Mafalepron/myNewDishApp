@@ -8,6 +8,8 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+
+
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -16,9 +18,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import RamenDiningIcon from '@mui/icons-material/RamenDining';
 import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import AssignmentTurnedInTwoToneIcon from '@mui/icons-material/AssignmentTurnedInTwoTone';
+import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
+import AssignmentReturnedTwoToneIcon from '@mui/icons-material/AssignmentReturnedTwoTone';
+import AssignmentReturnTwoToneIcon from '@mui/icons-material/AssignmentReturnTwoTone';
 import ContentPasteOffIcon from '@mui/icons-material/ContentPasteOff';
+import CancelIcon from '@mui/icons-material/Cancel';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
 
 
@@ -152,6 +160,11 @@ export default function Content() {
           context.axiGetRemains();
         }
         break;
+      case 3:
+        if(typeof context.axiGetRemains === 'function'){
+          context.axiGetRemains();
+        }
+        break;
     }
   };
   //конец табов
@@ -183,7 +196,7 @@ export default function Content() {
               ...(open && { display: 'none' }),
             }}
           >
-            <RamenDiningIcon />
+            <DensityMediumIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Бюфет
@@ -208,30 +221,7 @@ export default function Content() {
           >
             <Tab label={
               <ListItemButton
-                key='Статус'
-                // sx={{
-                //     minHeight: 48,
-                //     justifyContent: open ? 'initial' : 'center',
-                //     px: 2.5,
-                // }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'left',
-                  }}
-                >
-                  <ContentPasteGoIcon /> 
-                </ListItemIcon>
-                <ListItemText primary='MenuStartRemains' sx={{ opacity: open ? 1 : 0, marginRight: '-50px'}} />
-              </ListItemButton>
-            } {...a11yProps(0)} >
-                    
-            </Tab>
-            <Tab label={
-              <ListItemButton
-                key='БАП'
+                key='0'
                 sx={{
                   display: 'flex',
                   minHeight: 50,
@@ -247,15 +237,46 @@ export default function Content() {
                     justifyContent: 'center',
                   }}
                 >
-                  <AssignmentTurnedInIcon /> 
+                  <AssignmentTurnedInIcon 
+                    color={value===0?'secondary':'primary'}/> 
                 </ListItemIcon>
-                <ListItemText primary='MenuAcceptanceGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
+                {open &&
+                  <ListItemText primary='открыть смену' sx={{ opacity: open ? 1 : 0}} />
+                }
+              </ListItemButton>
+            } {...a11yProps(0)} >
+                    
+            </Tab>
+            <Tab label={
+              <ListItemButton
+                key='1'
+                sx={{
+                  display: 'flex',
+                  minHeight: 50,
+                  minWidth: 77,
+                  justifyContent: open ? 'initial' : 'left',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <AssignmentReturnedIcon 
+                    color={value===1?'secondary':'primary'}/> 
+                </ListItemIcon>
+                {open &&
+                  <ListItemText primary='принять товар' sx={{ opacity: open ? 1 : 0 }} />
+                }
               </ListItemButton>
             } {...a11yProps(0)} >
                     
             </Tab>           
             <Tab label={<ListItemButton
-              key='Add user'
+              key='2'
               sx={{
                 minHeight: 50,
                 minWidth: 77,
@@ -270,13 +291,17 @@ export default function Content() {
                   justifyContent: 'center',
                 }}
               >
-                <AssignmentReturnIcon /> 
+                <AssignmentReturnIcon 
+                  color={value===2?'secondary':'primary'}/> 
               </ListItemIcon>
-              <ListItemText primary='MenuReturnsGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+              
+              {open &&
+                <ListItemText primary='вернуть товар' sx={{ opacity: open ? 1 : 0 }} />
+              }
             </ListItemButton>} {...a11yProps(0)} >
             </Tab>
             <Tab label={<ListItemButton
-              key='Add user'
+              key='3'
               sx={{
                 minHeight: 50,
                 minWidth: 77,
@@ -291,9 +316,15 @@ export default function Content() {
                   justifyContent: 'center',
                 }}
               >
-                <ContentPasteOffIcon /> 
+                <CancelIcon 
+                  color={value===3?'secondary':'primary'}/> 
               </ListItemIcon>
-              <ListItemText primary='MenuEndRemains' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
+              
+              {open &&
+                <ListItemText 
+                  primary='закрыть смену'  
+                  sx={{ opacity: open ? 1 : 0 }} />
+              }
             </ListItemButton>} {...a11yProps(0)} >
             </Tab>
           </Tabs>

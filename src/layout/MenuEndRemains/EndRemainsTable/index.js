@@ -16,7 +16,7 @@ import { MyContext } from '../../../functions/context';
 
 
 
-export default function StartRemainsTable() {
+export default function EndRemainsTable() {
   const { products, remains} = React.useContext(MyContext);
 
  
