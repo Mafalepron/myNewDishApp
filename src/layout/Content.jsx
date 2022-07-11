@@ -14,10 +14,13 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import RamenDiningIcon from '@mui/icons-material/RamenDining';
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import ContentPasteOffIcon from '@mui/icons-material/ContentPasteOff';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+
+
 
 import MenuStartRemains from './MenuStartRemains';
 import MenuAcceptanceGoods from './MenuAcceptanceGoods';
@@ -180,7 +183,7 @@ export default function Content() {
               ...(open && { display: 'none' }),
             }}
           >
-            <AirplanemodeActiveIcon />
+            <RamenDiningIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Бюфет
@@ -219,9 +222,9 @@ export default function Content() {
                     justifyContent: 'left',
                   }}
                 >
-                  <CheckCircleOutlineIcon /> 
+                  <ContentPasteGoIcon /> 
                 </ListItemIcon>
-                <ListItemText primary='MenuOne' sx={{ opacity: open ? 1 : 0, marginRight: '-50px'}} />
+                <ListItemText primary='MenuStartRemains' sx={{ opacity: open ? 1 : 0, marginRight: '-50px'}} />
               </ListItemButton>
             } {...a11yProps(0)} >
                     
@@ -244,7 +247,7 @@ export default function Content() {
                     justifyContent: 'center',
                   }}
                 >
-                  <TrackChangesIcon /> 
+                  <AssignmentTurnedInIcon /> 
                 </ListItemIcon>
                 <ListItemText primary='MenuAcceptanceGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
               </ListItemButton>
@@ -267,7 +270,7 @@ export default function Content() {
                   justifyContent: 'center',
                 }}
               >
-                <AssignmentIcon /> 
+                <AssignmentReturnIcon /> 
               </ListItemIcon>
               <ListItemText primary='MenuReturnsGoods' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
             </ListItemButton>} {...a11yProps(0)} >
@@ -288,7 +291,7 @@ export default function Content() {
                   justifyContent: 'center',
                 }}
               >
-                <AssignmentIcon /> 
+                <ContentPasteOffIcon /> 
               </ListItemIcon>
               <ListItemText primary='MenuEndRemains' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
             </ListItemButton>} {...a11yProps(0)} >

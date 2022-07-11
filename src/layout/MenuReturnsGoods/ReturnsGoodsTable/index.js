@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 
 import Paper from '@mui/material/Paper';
 
-import s from './index.module.css';
+import style from './index.module.css';
 
 import Row from './Row';
 import createData from './createData';
@@ -27,11 +27,11 @@ export default function ReturnsGoodsTable() {
   const context = React.useContext(MyContext);
   
   return (
-    <div className={s.MenuThreeTable}>
-      <TableContainer className={s.Paper} component={Paper}>
-        <Table aria-label="collapsible table" className={s.Paperbody}>
+    <div className={style.MenuThreeTable}>
+      <TableContainer className={style.Paper} component={Paper}>
+        <Table aria-label="collapsible table" className={style.Paperbody}>
           <TableHead>
-            <TableRow className={s.Paperhead}>
+            <TableRow className={style.Paperhead}>
               <TableCell />
               <TableCell>Dessert (100g serving)</TableCell>
               <TableCell align="right">Calories</TableCell>
