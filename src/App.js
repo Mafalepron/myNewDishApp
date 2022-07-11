@@ -50,9 +50,8 @@ class App extends React.Component {
         // this.setState({token: ''});
         // this.setState({password: ''});
       }
-      this.setState({remains: result});
+      this.setState({remains: result.remains});
       
-      console.log(this.state.products);
     }, 
     (e) => {
       console.log(e);

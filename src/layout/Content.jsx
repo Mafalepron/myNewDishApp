@@ -19,10 +19,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
-import { MenuOne } from './MenuOne/index';
-import { MenuTwo } from './MenuTwo/index';
-import { MenuThree } from './MenuThree/index';
-import { MenuFour } from './MenuFour/index';
+import { MenuStartRemains } from './MenuStartRemains';
+import { MenuTwo } from './MenuTwo';
+import { MenuThree } from './MenuThree';
+import { MenuFour } from './MenuFour';
 import { AddUserModal } from '../components/authorization/addUserModal';
 
 
@@ -31,6 +31,7 @@ import { AddUserModal } from '../components/authorization/addUserModal';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { MyContext } from '../functions/context';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -136,11 +137,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Content() {
+  const context = React.useContext(MyContext);
   //табы
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    switch(newValue){
+      case 0:
+        if(typeof context.axiGetRemains === 'function'){
+          context.axiGetRemains();
+        }
+        break;
+    }
   };
   //конец табов
 
@@ -174,7 +183,7 @@ export default function Content() {
             <AirplanemodeActiveIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            DishApp
+            Бюфет
           </Typography>
         </Toolbar>
       </AppBar>
@@ -295,7 +304,7 @@ export default function Content() {
           sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
         >
           <TabPanel value={value} index={0}>
-            <MenuOne />
+            <MenuStartRemains />
           </TabPanel>
           <TabPanel value={value} index={1}>
             <MenuTwo />

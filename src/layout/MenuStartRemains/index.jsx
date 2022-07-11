@@ -1,8 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
-import MenuOneTable from './MenuOneTable/index';
+import MenuOneTable from './StartRemainsTable/index';
 import { MyContext } from '../../functions/context';
 
-const MenuOne = () => {
+const MenuStartRemains = () => {
 
 
 
@@ -15,4 +15,4 @@ const MenuOne = () => {
 };
 
 
-export { MenuOne };
+export { MenuStartRemains };

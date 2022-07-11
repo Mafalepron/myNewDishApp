@@ -16,7 +16,7 @@ import { MyContext } from '../../../functions/context';
 
 
 
-
+/* 
 const rows = [
   createData('Пирожок', 159, 6.0, 24, 4.0, 3.99),
   createData('Рожок', 237, 9.0, 37, 4.3, 4.99),
@@ -24,7 +24,8 @@ const rows = [
   createData('еее рокк', 305, 3.7, 67, 4.3, 2.5),
 ];
 
-export default function MenuOneTable() {
+ */
+export default function StartRemainsTable() {
   const { axiGetRemains, products, remains, token } = React.useContext(MyContext);
 
   /* 
@@ -39,17 +40,32 @@ export default function MenuOneTable() {
           <TableHead>
             <TableRow className={s.Paperhead}>
               <TableCell />
-              <TableCell>Dessert (100g serving)</TableCell>
+              <TableCell>наименование</TableCell>
+              {/* 
               <TableCell align="right">Calories</TableCell>
               <TableCell align="right">Fat&nbsp;(g)</TableCell>
               <TableCell align="right">Carbs&nbsp;(g)</TableCell>
               <TableCell align="right">Protein&nbsp;(g)</TableCell>
+               */}
+              <TableCell align="right">количество</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+            {/* 
             {rows.map((row) => (
               <Row key={row.name} row={row} />
             ))}
+            */}
+            {(typeof remains === 'object') ? remains.map((remain, remainIndex) => {
+              let row = createData(products[remain.product]?.name, remain.quantity);
+              return (
+                <Row key={remainIndex} row={row} />
+              );
+            })
+              : 
+              <></>
+            
+            }
           </TableBody>
         </Table>
       </TableContainer>

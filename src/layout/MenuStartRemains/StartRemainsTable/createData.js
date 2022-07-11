@@ -1,11 +1,12 @@
-const createData = (name, calories, fat, carbs, protein, price) => {
+const createData = (name, /* calories, fat, carbs, protein, price,  */quantity) => {
   return {
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
+    //calories,
+    //fat,
+    //carbs,
+    //protein,
+    //price,
+    quantity,
     history: [
       {
         date: '2020-01-05',
