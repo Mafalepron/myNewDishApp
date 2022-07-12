@@ -2,8 +2,8 @@ import React, { createContext } from 'react';
 
 const MyContext = createContext({
   token: '',
-  name: 'test',
-  password: 'test',
+  name: '',
+  password: '',
   products: [],
   remains: [],
   axiLogInCashier: () => {},

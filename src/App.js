@@ -3,20 +3,27 @@ import Content from './layout/Content';
 import { MyContext } from './functions/context';
 import axi from './functions/axiosf';
 
+import LoginModal from './components/authorization/LoginModal';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       token: '',
-      name: 'test',
-      password: 'test',
+      name: '',
+      password: '',
       products: [],
       remains: [],
       axiLogInCashier: this.axiLogInCashier,
       axiGetRemains: this.axiGetRemains
     };
   }
+
+  loginModalSendData = (login, pass) => {
+    this.setState({name: login, password: pass});
+  };
+
   axiLogInCashier = () => {
     axi('logInCashier.php', '', {name: this.state.name, password: this.state.password }).then((result) => {
       if (result.type === 'approved') {
@@ -61,15 +68,20 @@ class App extends React.Component {
 
   //временно авторизируемся под тестовым пользователем чтобы дальше работать. 
   //убрать после готовности страницы авторизации.
-  componentDidMount() {
-    this.axiLogInCashier();
+  componentDidUpdate() {
+    if (this.state.name) {
+      this.axiLogInCashier();
+    }
   }
 
   render() {
     return (
       <MyContext.Provider 
         value={this.state}>
-        <Content />
+        {
+          this.state.token? <Content /> : <LoginModal loginModalSendData = {this.loginModalSendData}/>
+        }
+        
       </MyContext.Provider>
     );
   }
