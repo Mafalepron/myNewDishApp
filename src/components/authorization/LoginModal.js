@@ -6,9 +6,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Stack from '@mui/material/Stack';
+import { MyContext } from '../../functions/context';
 
 
 export default function LoginModal(props) {
+  const context = React.useContext(MyContext);
   const [login, setLogin] = React.useState('');
   const [pass, setPass] = React.useState('');
   const rootRef = React.useRef(null);
@@ -22,8 +24,18 @@ export default function LoginModal(props) {
     setPass(e.target.value);
   };
 
-  const handleClickSendForm = (login, pass) => {
-    props.loginModalSendData(login, pass);
+  const handleClickSendForm = () => {
+    if (typeof context.axiLogInCashier === 'function'){
+      context.axiLogInCashier(login, pass);
+    }else{
+      alert('функция не найдена');
+    }
+  };
+
+  const handleKeyDown = (e)=>{
+    if (e.key === 'Enter'){
+      handleClickSendForm();
+    }
   };
 
   return (
@@ -78,6 +90,7 @@ export default function LoginModal(props) {
               variant="standard"
               onChange={handleChangeLogin}
               value={login}
+              onKeyDown={handleKeyDown}
             />
             &nbsp;&nbsp;&nbsp;
             <TextField
@@ -88,12 +101,14 @@ export default function LoginModal(props) {
               variant="standard"
               onChange={handleChangePass}
               value={pass}
+              onKeyDown={handleKeyDown}
             />
             <Stack direction="row" spacing={2} sx={{marginLeft: '270px', marginTop: '10px'}}>
               <Button variant="contained" 
                 endIcon={<CheckBoxIcon />} 
                 sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
                 onClick={handleClickSendForm}
+                
               >
                 Подтвердить
               </Button>

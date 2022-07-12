@@ -8,6 +8,8 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { MyContext } from '../../functions/context';
 
 
 const style = {
@@ -22,10 +24,20 @@ const style = {
   p: 4,
 };
 
-const AddUserModal = () => {
+const AddUserModal = (props) => {
+  const context = React.useContext(MyContext);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleClickExit = () => {
+    if (typeof context.userExit === 'function'){
+      context.userExit();
+      setOpen(false);
+    }else{
+      alert('функция не найдена');
+    }
+  };
 
   return (
     <div>
@@ -43,10 +55,10 @@ const AddUserModal = () => {
             justifyContent: 'center',
           }}
         >
-          <PersonAddAltIcon />
+          <LogoutIcon />
         </ListItemIcon>
                 &nbsp;
-        <h4>add user</h4>
+        <h4>выйти</h4>
       </ListItemButton>
       <Modal
         keepMounted
@@ -57,12 +69,16 @@ const AddUserModal = () => {
       >
         <Box sx={style}>
           <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Please add user
+            Вы уверены что хотите выйти?
           </Typography>
           <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            не забудьте закрыть смену в конце дня
           </Typography>
-          <button type='success' style={{marginLeft: '250px'}}>Добавить</button>
+          <button 
+            type='success' 
+            style={{marginLeft: '250px'}}
+            onClick={handleClickExit}            
+          >Выйти</button>
         </Box>
       </Modal>
     </div>

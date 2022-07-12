@@ -16,16 +16,14 @@ class App extends React.Component {
       products: [],
       remains: [],
       axiLogInCashier: this.axiLogInCashier,
+      userExit: this.userExit,
       axiGetRemains: this.axiGetRemains
     };
   }
 
-  loginModalSendData = (login, pass) => {
-    this.setState({name: login, password: pass});
-  };
 
-  axiLogInCashier = () => {
-    axi('logInCashier.php', '', {name: this.state.name, password: this.state.password }).then((result) => {
+  axiLogInCashier = (login = this.state.name, pass = this.state.password) => {
+    axi('logInCashier.php', '', {name: login, password:  pass}).then((result) => {
       if (result.type === 'approved') {
         console.log('Данные подтверждены');
         this.setState({token: result.token});
@@ -37,15 +35,19 @@ class App extends React.Component {
         console.log(result); 
         this.axiGetRemains(result.token);
       } else if (result.type === 'no_authorized') {
-        console.log('Вы не авторизованы');
+        alert('Вы не авторизованы');
       } else if (result.error === 'invalid_password'){
-        console.log('Неверный пароль');
+        alert('Неверный пароль');
       } else if (result.type === 'no_name') {
-        console.log('Неверное имя пользователя');
+        alert('Неверное имя пользователя');
       } 
     }, (e) => {
     }
     );
+  };
+
+  userExit = () => {
+    this.setState({token: ''});
   };
 
   axiGetRemains = (authToken) => {
@@ -68,18 +70,20 @@ class App extends React.Component {
 
   //временно авторизируемся под тестовым пользователем чтобы дальше работать. 
   //убрать после готовности страницы авторизации.
+  /* 
   componentDidUpdate() {
     if (this.state.name) {
       this.axiLogInCashier();
     }
   }
+   */
 
   render() {
     return (
       <MyContext.Provider 
         value={this.state}>
         {
-          this.state.token? <Content /> : <LoginModal loginModalSendData = {this.loginModalSendData}/>
+          this.state.token? <Content /> : <LoginModal/>
         }
         
       </MyContext.Provider>
