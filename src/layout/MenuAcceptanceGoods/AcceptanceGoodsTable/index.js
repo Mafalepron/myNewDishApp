@@ -23,7 +23,7 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function AcceptanceGoodsTable() {
+export default function AcceptanceGoodsTable(props) {
   const context = React.useContext(MyContext);
   return (
     <div className={style.MenuTwoTable}>
@@ -32,17 +32,21 @@ export default function AcceptanceGoodsTable() {
           <TableHead>
             <TableRow className={style.Paperhead}>
               <TableCell />
-              <TableCell>Dessert (100g serving)</TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>наименование</TableCell>
+              <TableCell align="right">количество</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <Row key={row.name} row={row} />
-            ))}
+            {(typeof props.invoice === 'object') ? props.invoice.map((item, index) => {
+              let row = createData(context.products[item.product]?.name, item.quantity);
+              return (
+                <Row key={index} row={row} />
+              );
+            })
+              : 
+              <></>
+            
+            }
           </TableBody>
         </Table>
       </TableContainer>
