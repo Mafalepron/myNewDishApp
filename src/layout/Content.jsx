@@ -16,25 +16,26 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import RamenDiningIcon from '@mui/icons-material/RamenDining';
-import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
-import AssignmentTurnedInTwoToneIcon from '@mui/icons-material/AssignmentTurnedInTwoTone';
+
+
 import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
-import AssignmentReturnedTwoToneIcon from '@mui/icons-material/AssignmentReturnedTwoTone';
-import AssignmentReturnTwoToneIcon from '@mui/icons-material/AssignmentReturnTwoTone';
-import ContentPasteOffIcon from '@mui/icons-material/ContentPasteOff';
+
 import CancelIcon from '@mui/icons-material/Cancel';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
+import Button from '@mui/material/Button';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import Stack from '@mui/material/Stack';
 
 
+import style from './Content.module.css';
 import MenuStartRemains from './MenuStartRemains';
 import MenuAcceptanceGoods from './MenuAcceptanceGoods';
 import MenuReturnsGoods from './MenuReturnsGoods';
 import MenuEndRemains from './MenuEndRemains';
-import { AddUserModal } from '../components/authorization/addUserModal';
+import { ExitUserModal } from '../components/authorization/ExitUserModal';
 
 
 // начало табменю
@@ -182,7 +183,7 @@ export default function Content() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <div className = {style.content}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -205,14 +206,14 @@ export default function Content() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          { open ? <AddUserModal />
+          { open ? <ExitUserModal />
             : '' }
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List className={style.nav}>
           <Tabs
             orientation="vertical"
             // value={value}
@@ -244,8 +245,7 @@ export default function Content() {
                   <ListItemText primary='открыть смену' sx={{ opacity: open ? 1 : 0}} />
                 }
               </ListItemButton>
-            } {...a11yProps(0)} >
-                    
+            } {...a11yProps(0)} > 
             </Tab>
             <Tab label={
               <ListItemButton
@@ -331,27 +331,51 @@ export default function Content() {
           <Divider />
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" className={style.main} sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         {/* табы */}
         <Box
           sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
         >
-          <TabPanel value={value} index={0}>
+          <TabPanel className={style.table} value={value} index={0}>
             <MenuStartRemains />
+            <Button variant="contained" 
+              endIcon={<CheckBoxIcon />} 
+              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
+            >
+              Подтвердить
+            </Button>
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel className={style.table} value={value} index={1}>
             <MenuAcceptanceGoods />
+            <Button variant="contained" 
+              endIcon={<CheckBoxIcon />} 
+              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
+            >
+              Подтвердить
+            </Button>
           </TabPanel>
-          <TabPanel value={value} index={2}>
+          <TabPanel className={style.table} value={value} index={2}>
             <MenuReturnsGoods />
+            <Button variant="contained" 
+              endIcon={<CheckBoxIcon />} 
+              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
+            >
+              Подтвердить
+            </Button>
           </TabPanel>
-          <TabPanel value={value} index={3}>
+          <TabPanel className={style.table} value={value} index={3}>
             <MenuEndRemains />
+            <Button variant="contained" 
+              endIcon={<CheckBoxIcon />} 
+              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
+            >
+              Подтвердить
+            </Button>
           </TabPanel>
         </Box>
         {/* табы */}
       </Box>
-    </Box>
+    </div>
   );
 }

@@ -1,0 +1,9 @@
+.content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.table {
+    flex: 1 1 333.3px;
+}

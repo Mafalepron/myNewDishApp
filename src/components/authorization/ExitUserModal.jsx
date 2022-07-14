@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { MyContext } from '../../functions/context';
 
@@ -24,7 +23,7 @@ const style = {
   p: 4,
 };
 
-const AddUserModal = (props) => {
+const ExitUserModal = (props) => {
   const context = React.useContext(MyContext);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -38,6 +37,7 @@ const AddUserModal = (props) => {
       alert('функция не найдена');
     }
   };
+
 
   return (
     <div>
@@ -69,16 +69,25 @@ const AddUserModal = (props) => {
       >
         <Box sx={style}>
           <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-            Вы уверены что хотите выйти?
+            Вы уверены, что хотите выйти?
           </Typography>
           <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
             не забудьте закрыть смену в конце дня
           </Typography>
-          <button 
-            type='success' 
-            style={{marginLeft: '250px'}}
-            onClick={handleClickExit}            
-          >Выйти</button>
+          <br />
+          <div style={{display: 'flex'}}>
+            <Button
+              variant="contained" 
+              type='success' 
+              style={{backgroundColor: 'green', width: '150px', fontSize: '12px'}}
+              onClick={handleClose}            
+            >Остаться</Button>
+            <Button 
+              variant="contained"
+              style={{marginLeft: '170px', backgroundColor: 'red', fontSize: '12px', width: '150px'}}
+              onClick={handleClickExit}            
+            >Выйти</Button>
+          </div>
         </Box>
       </Modal>
     </div>
@@ -86,4 +95,4 @@ const AddUserModal = (props) => {
 };
 
 
-export { AddUserModal };
+export { ExitUserModal };
