@@ -2,6 +2,10 @@ import React, {useEffect, useContext, useState} from 'react';
 import ReturnsGoodsTable from './ReturnsGoodsTable';
 import { MyContext } from '../../functions/context';
 
+import style from './index.module.css';
+
+
+
 const MenuReturnsGoods = () => {
   const context = useContext(MyContext);
   const [returnInvoice, setReturnInvoice] = useState([]);
@@ -21,7 +25,7 @@ const MenuReturnsGoods = () => {
   },[]);
 
   return(
-    <div>
+    <div className={style.table}>
       <ReturnsGoodsTable returnInvoice={returnInvoice}/>
     </div>
 

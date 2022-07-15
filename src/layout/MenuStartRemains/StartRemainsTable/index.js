@@ -22,29 +22,29 @@ export default function StartRemainsTable() {
  
   return (
     <div className={style.MenuOneTable}>
-      <TableContainer className={style.Paper} component={Paper}>
-        <Table aria-label="collapsible table" className={style.Paperbody}>
-          <TableHead>
-            <TableRow className={style.Paperhead}>
-              <TableCell />
-              <TableCell>наименование</TableCell>
-              <TableCell align="right">количество</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(typeof remains === 'object') ? remains.map((remain, remainIndex) => {
-              let row = createData(products[remain.product]?.name, remain.quantity);
-              return (
-                <Row key={remainIndex} row={row} />
-              );
-            })
-              : 
-              <></>
-            
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {/* <TableContainer className={style.Paper} component={Paper}> */}
+      <Table aria-label="collapsible table" className={style.Paperbody}>
+        <TableHead>
+          <TableRow className={style.Paperhead}>
+            <TableCell />
+            <TableCell>наименование</TableCell>
+            <TableCell align="right">количество</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(typeof remains === 'object') ? remains.map((remain, remainIndex) => {
+            let row = createData(products[remain.product]?.name, remain.quantity);
+            return (
+              <Row key={remainIndex} row={row} />
+            );
+          })
+            : 
+            <></>
+          
+          }
+        </TableBody>
+      </Table>
+      {/* </TableContainer> */}
     </div>
   );
 }

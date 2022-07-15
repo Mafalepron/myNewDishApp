@@ -3,6 +3,10 @@ import AcceptanceGoodsTable from './AcceptanceGoodsTable';
 import { MyContext } from '../../functions/context';
 import axi from '../../functions/axiosf';
 
+import style from './index.module.css';
+
+
+
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
@@ -32,7 +36,7 @@ const MenuAcceptanceGoods = () => {
   },[]);
 
   return(
-    <div>
+    <div className={style.table}>
       <AcceptanceGoodsTable invoice={invoice}/>
     </div>
 
