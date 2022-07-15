@@ -4,6 +4,8 @@ import { MyContext } from '../../functions/context';
 
 const MenuEndRemains = () => {
   const context = useContext(MyContext);
+
+
   return(
     <div>
       <EndRemainsTable/>
