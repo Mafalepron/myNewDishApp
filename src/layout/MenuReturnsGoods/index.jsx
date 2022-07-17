@@ -24,9 +24,8 @@ const MenuReturnsGoods = () => {
   const onChangeQuantity = (quantityValue, quantityIndex) => {
     let newReturnInvoice = [...returnInvoice];
     let rowIndex = +quantityIndex;
-    console.log(rowIndex);
-    typeof newReturnInvoice[rowIndex]?.quantity === 'number' ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
-    console.log(newReturnInvoice[rowIndex]?.quantity);
+    (typeof newReturnInvoice[rowIndex]?.quantity === 'number' || typeof newReturnInvoice[rowIndex]?.quantity === 'string')
+      ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
     setReturnInvoice(newReturnInvoice);
   };
   
