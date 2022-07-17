@@ -27,6 +27,12 @@ export default function ReturnsGoodsTable(props) {
   
   const { products, remains} = React.useContext(MyContext);
   
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    if(typeof props.onChangeQuantity === 'function'){
+      props.onChangeQuantity(quantityValue, quantityIndex);
+    };
+  };
+
   return (
     <div className={style.MenuThreeTable}>
       <TableContainer className={style.Paper} component={Paper}>
@@ -42,7 +48,11 @@ export default function ReturnsGoodsTable(props) {
             {(typeof props.returnInvoice === 'object') ? props.returnInvoice.map((remain, remainIndex) => {
               let row = createData(products[remain.product]?.name, remain.quantity);
               return (
-                <Row key={remainIndex} row={row} />
+                <Row 
+                  key={remainIndex} 
+                  index={remainIndex}
+                  row={row} 
+                  onChangeQuantity={onChangeQuantity}/>
               );
             })
               : 

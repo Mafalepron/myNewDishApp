@@ -19,6 +19,16 @@ const MenuReturnsGoods = () => {
     });
     setReturnInvoice(newReturnInvoice);
   };
+
+  
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    let newReturnInvoice = [...returnInvoice];
+    let rowIndex = +quantityIndex;
+    console.log(rowIndex);
+    typeof newReturnInvoice[rowIndex]?.quantity === 'number' ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
+    console.log(newReturnInvoice[rowIndex]?.quantity);
+    setReturnInvoice(newReturnInvoice);
+  };
   
   useEffect(()=>{
     setNullRemains();
@@ -26,7 +36,10 @@ const MenuReturnsGoods = () => {
 
   return(
     <div className={style.table}>
-      <ReturnsGoodsTable returnInvoice={returnInvoice}/>
+      <ReturnsGoodsTable 
+        returnInvoice={returnInvoice}
+        onChangeQuantity={onChangeQuantity}
+      />
     </div>
 
   );
