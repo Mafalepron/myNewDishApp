@@ -370,7 +370,7 @@ export default function Content() {
               endIcon={<CheckBoxIcon />} 
               sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
             >
-              Подтвердить
+              Подтвердитьь
             </Button>
           </TabPanel>
         </Box>
