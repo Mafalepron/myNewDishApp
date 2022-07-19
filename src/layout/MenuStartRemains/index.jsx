@@ -3,6 +3,7 @@ import StartRemainsTable from './StartRemainsTable';
 import { MyContext } from '../../functions/context';
 
 import style from './index.module.css';
+import postInvoices from '../../functions/postInvoices';
 
 
 const MenuStartRemains = () => {
@@ -17,6 +18,20 @@ const MenuStartRemains = () => {
     setInvoice(newReturnInvoice);
   };
 
+  const handlePressOk = async () => {
+    let result = await postInvoices('setStartRemainsInvoice.php', context.token, invoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains);
+        }
+      }
+    }
+  };
 
   const setServerRemains = () => {
     if (!invoice.length){

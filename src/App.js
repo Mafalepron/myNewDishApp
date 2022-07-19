@@ -17,7 +17,8 @@ class App extends React.Component {
       remains: [],
       axiLogInCashier: this.axiLogInCashier,
       userExit: this.userExit,
-      axiGetRemains: this.axiGetRemains
+      axiGetRemains: this.axiGetRemains,
+      setRemainsState: this.setRemainsState,
     };
   }
 
@@ -59,13 +60,16 @@ class App extends React.Component {
         // this.setState({token: ''});
         // this.setState({password: ''});
       }
-      this.setState({remains: result.remains});
-      
+      this.setRemainsState(result.remains);
     }, 
     (e) => {
       console.log(e);
     }
     );
+  };
+
+  setRemainsState = (remains) => {
+    this.setState({remains: remains});
   };
 
   //временно авторизируемся под тестовым пользователем чтобы дальше работать. 
