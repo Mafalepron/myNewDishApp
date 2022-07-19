@@ -339,39 +339,15 @@ export default function Content() {
         >
           <TabPanel className={style.table} value={value} index={0}>
             <MenuStartRemains />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={1}>
             <MenuAcceptanceGoods />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={2}>
             <MenuReturnsGoods />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={3}>
             <MenuEndRemains />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
         </Box>
         {/* табы */}
