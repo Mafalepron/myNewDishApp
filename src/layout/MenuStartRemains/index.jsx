@@ -52,6 +52,7 @@ const MenuStartRemains = () => {
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
       <Button variant="contained" 
+        onClick={handlePressOk}
         endIcon={<CheckBoxIcon />} 
         sx={{
           fontSize: '12px', 

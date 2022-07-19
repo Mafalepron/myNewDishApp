@@ -5,6 +5,7 @@ import { MyContext } from '../../functions/context';
 import style from './index.module.css';
 import Button from '@mui/material/Button';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import postInvoices from '../../functions/postInvoices';
 
 
 
@@ -30,6 +31,21 @@ const MenuReturnsGoods = () => {
       ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
     setReturnInvoice(newReturnInvoice);
   };
+
+  const handlePressOk = async () => {
+    let result = await postInvoices('setReturnsGoodsInvoice.php', context.token, returnInvoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains);
+        }
+      }
+    }
+  };
   
   useEffect(()=>{
     setNullRemains();
@@ -43,6 +59,7 @@ const MenuReturnsGoods = () => {
       />
       <Button variant="contained" 
         endIcon={<CheckBoxIcon />} 
+        onClick={handlePressOk}
         sx={{
           fontSize: '12px', 
           textTransform: 'lowercase', 

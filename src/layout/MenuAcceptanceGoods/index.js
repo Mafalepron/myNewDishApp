@@ -6,9 +6,7 @@ import axi from '../../functions/axiosf';
 import style from './index.module.css';
 import Button from '@mui/material/Button';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
-
-
+import postInvoices from '../../functions/postInvoices';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
@@ -42,6 +40,21 @@ const MenuAcceptanceGoods = () => {
     );
   };
 
+  const handlePressOk = async () => {
+    let result = await postInvoices('setAcceptanceGoodsInvoice.php', context.token, invoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains);
+        }
+      }
+    }
+  };
+
   useEffect(()=>{
     axiGetShipmentInvoice();
   },[]);
@@ -54,6 +67,7 @@ const MenuAcceptanceGoods = () => {
       />
       <Button variant="contained" 
         endIcon={<CheckBoxIcon />} 
+        onClick={handlePressOk}
         sx={{
           fontSize: '12px', 
           textTransform: 'lowercase', 
