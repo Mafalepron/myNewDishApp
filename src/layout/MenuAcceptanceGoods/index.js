@@ -4,6 +4,8 @@ import { MyContext } from '../../functions/context';
 import axi from '../../functions/axiosf';
 
 import style from './index.module.css';
+import Button from '@mui/material/Button';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 
 
@@ -50,6 +52,18 @@ const MenuAcceptanceGoods = () => {
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}
       />
+      <Button variant="contained" 
+        endIcon={<CheckBoxIcon />} 
+        sx={{
+          fontSize: '12px', 
+          textTransform: 'lowercase', 
+          borderRadius: '18px', 
+          marginTop: '5px', 
+          left: '85%', 
+          width: '15%'}}
+      > 
+        Отправить
+      </Button>
     </div>
   );
 };
