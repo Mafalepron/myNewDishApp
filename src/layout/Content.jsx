@@ -25,9 +25,6 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
-import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Stack from '@mui/material/Stack';
 
 
 import style from './Content.module.css';
@@ -333,48 +330,22 @@ export default function Content() {
       </Drawer>
       <Box component="main" className={style.main} sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        {/* табы */}
         <Box
           sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
         >
           <TabPanel className={style.table} value={value} index={0}>
             <MenuStartRemains />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={1}>
             <MenuAcceptanceGoods />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={2}>
             <MenuReturnsGoods />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердить
-            </Button>
           </TabPanel>
           <TabPanel className={style.table} value={value} index={3}>
             <MenuEndRemains />
-            <Button variant="contained" 
-              endIcon={<CheckBoxIcon />} 
-              sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
-            >
-              Подтвердитьь
-            </Button>
           </TabPanel>
         </Box>
-        {/* табы */}
       </Box>
     </div>
   );
