@@ -1,6 +1,7 @@
 import React, {useEffect, useContext, useState} from 'react';
 import ReturnsGoodsTable from './ReturnsGoodsTable';
 import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 
 import style from './index.module.css';
 import Button from '@mui/material/Button';
@@ -43,13 +44,7 @@ const MenuReturnsGoods = () => {
       />
       <Button variant="contained" 
         endIcon={<CheckBoxIcon />} 
-        sx={{
-          fontSize: '12px', 
-          textTransform: 'lowercase', 
-          borderRadius: '18px', 
-          marginTop: '5px', 
-          left: '85%', 
-          width: '15%'}}
+        sx={stylesObj.SendRemainsButton}
       > 
         Отправить
       </Button>
