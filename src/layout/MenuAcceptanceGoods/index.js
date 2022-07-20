@@ -6,7 +6,7 @@ import axi from '../../functions/axiosf';
 
 import style from './index.module.css';
 import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 
 const MenuAcceptanceGoods = () => {
@@ -67,11 +67,11 @@ const MenuAcceptanceGoods = () => {
         onChangeQuantity={onChangeQuantity}
       />
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />} 
+        endIcon={<AddIcon />} 
         onClick={handlePressOk}
         sx={stylesObj.SendRemainsButton}
       > 
-        Отправить
+        принять
       </Button>
     </div>
   );

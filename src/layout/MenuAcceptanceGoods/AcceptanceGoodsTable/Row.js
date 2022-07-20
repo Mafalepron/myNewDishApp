@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TextField from '@mui/material/TextField';
+import { stylesObj } from '../../../stylesObj/stylesObj';
 
 
 
@@ -28,7 +29,7 @@ const Row = (props) => {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell sx={stylesObj.TableCellMinPadding}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -37,7 +38,7 @@ const Row = (props) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell sx={stylesObj.TableCellMinPadding} component="th" scope="row">
           {row.name}
         </TableCell>
         {/* 
@@ -46,7 +47,7 @@ const Row = (props) => {
         <TableCell align="right">{row.carbs}</TableCell>
         <TableCell align="right">{row.protein}</TableCell>
         */}
-        <TableCell align="right">
+        <TableCell sx={stylesObj.TableCellMinPadding} align="right">
           <TextField
             id="outlined-number"
             value={row.quantity}

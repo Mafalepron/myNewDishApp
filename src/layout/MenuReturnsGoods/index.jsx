@@ -5,7 +5,7 @@ import { stylesObj } from '../../stylesObj/stylesObj';
 
 import style from './index.module.css';
 import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import postInvoices from '../../functions/postInvoices';
 
 
@@ -17,7 +17,7 @@ const MenuReturnsGoods = () => {
   const setNullRemains = () => {
     let newReturnInvoice = [];
     context.remains?.map((index, item)=>{
-      let remainRow = index;
+      let remainRow = {...index}; //протестировал, `...` работает. но лучше обращать внимание на его работу
       remainRow.quantity = 0;
       newReturnInvoice = [... newReturnInvoice, remainRow];
     });
@@ -59,11 +59,11 @@ const MenuReturnsGoods = () => {
         onChangeQuantity={onChangeQuantity}
       />
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />}  
+        endIcon={<ReplyAllIcon/>}  
         onClick={handlePressOk}
         sx={stylesObj.SendRemainsButton}
       > 
-        Отправить
+        вернуть
       </Button>
     </div>
 

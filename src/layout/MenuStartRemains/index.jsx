@@ -6,7 +6,7 @@ import { stylesObj } from '../../stylesObj/stylesObj';
 import style from './index.module.css';
 import postInvoices from '../../functions/postInvoices';
 import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 const MenuStartRemains = () => {
@@ -54,10 +54,10 @@ const MenuStartRemains = () => {
         onChangeQuantity={onChangeQuantity}/>
       <Button variant="contained" 
         onClick={handlePressOk}
-        endIcon={<CheckBoxIcon />} 
+        endIcon={<CheckIcon />} 
         sx={stylesObj.SendRemainsButton}
       > 
-        Отправить
+        открыть смену
       </Button>
     </div>
 

@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TextField from '@mui/material/TextField';
+import { stylesObj } from '../../../stylesObj/stylesObj';
 
 
 const Row = (props) => {
@@ -26,7 +27,7 @@ const Row = (props) => {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell sx={stylesObj.TableCellMinPadding}>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -35,10 +36,10 @@ const Row = (props) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
+        <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
           {row.name}
         </TableCell>
-        <TableCell align="right">
+        <TableCell align="right" sx={stylesObj.TableCellMinPadding}>
           <TextField
             id="outlined-number"
             value={row.quantity}
@@ -62,21 +63,21 @@ const Row = (props) => {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
+                    <TableCell sx={stylesObj.TableCellMinPadding}>Date</TableCell>
+                    <TableCell sx={stylesObj.TableCellMinPadding}>Customer</TableCell>
+                    <TableCell align="right" sx={stylesObj.TableCellMinPadding}>Amount</TableCell>
+                    <TableCell align="right" sx={stylesObj.TableCellMinPadding}>Total price ($)</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.history.map((historyRow) => (
                     <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
                         {historyRow.date}
                       </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
+                      <TableCell sx={stylesObj.TableCellMinPadding}>{historyRow.customerId}</TableCell>
+                      <TableCell align="right" sx={stylesObj.TableCellMinPadding}>{historyRow.amount}</TableCell>
+                      <TableCell align="right" sx={stylesObj.TableCellMinPadding}>
                         {Math.round(historyRow.amount * row.price * 100) / 100}
                       </TableCell>
                     </TableRow>
