@@ -1,6 +1,7 @@
 import React, {useEffect, useContext, useState} from 'react';
 import EndRemainsTable from './EndRemainsTable';
 import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 
 import style from './index.module.css';
 import Button from '@mui/material/Button';
@@ -56,15 +57,9 @@ const MenuEndRemains = () => {
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />} 
+        endIcon={<CheckBoxIcon />}  
         onClick={handlePressOk}
-        sx={{
-          fontSize: '12px', 
-          textTransform: 'lowercase', 
-          borderRadius: '18px', 
-          marginTop: '5px', 
-          left: '85%', 
-          width: '15%'}}
+        sx={stylesObj.SendRemainsButton}
       > 
         Отправить
       </Button>

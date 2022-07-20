@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import AcceptanceGoodsTable from './AcceptanceGoodsTable';
 import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 import axi from '../../functions/axiosf';
 
 import style from './index.module.css';
@@ -68,13 +69,7 @@ const MenuAcceptanceGoods = () => {
       <Button variant="contained" 
         endIcon={<CheckBoxIcon />} 
         onClick={handlePressOk}
-        sx={{
-          fontSize: '12px', 
-          textTransform: 'lowercase', 
-          borderRadius: '18px', 
-          marginTop: '5px', 
-          left: '85%', 
-          width: '15%'}}
+        sx={stylesObj.SendRemainsButton}
       > 
         Отправить
       </Button>

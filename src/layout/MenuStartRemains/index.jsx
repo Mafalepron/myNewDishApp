@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import StartRemainsTable from './StartRemainsTable';
 import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 
 import style from './index.module.css';
 import postInvoices from '../../functions/postInvoices';
@@ -54,13 +55,7 @@ const MenuStartRemains = () => {
       <Button variant="contained" 
         onClick={handlePressOk}
         endIcon={<CheckBoxIcon />} 
-        sx={{
-          fontSize: '12px', 
-          textTransform: 'lowercase', 
-          borderRadius: '18px', 
-          marginTop: '5px', 
-          left: '85%', 
-          width: '15%'}}
+        sx={stylesObj.SendRemainsButton}
       > 
         Отправить
       </Button>
