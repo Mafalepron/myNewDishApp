@@ -33,6 +33,12 @@ export default function ReturnsGoodsTable(props) {
     };
   };
 
+  const onChangeComment = (commentValue, commentIndex) => {
+    if(typeof props.onChangeComment === 'function'){
+      props.onChangeComment(commentValue, commentIndex);
+    };
+  };
+
   return (
     <div className={style.MenuThreeTable}>
       <TableContainer className={style.Paper} component={Paper}>
@@ -46,13 +52,15 @@ export default function ReturnsGoodsTable(props) {
           </TableHead>
           <TableBody>
             {(typeof props.returnInvoice === 'object') ? props.returnInvoice.map((remain, remainIndex) => {
-              let row = createData(products[remain.product]?.name, remain.quantity);
+              let row = createData(products[remain.product]?.name, remain.quantity, remain.comment);
               return (
                 <Row 
                   key={remainIndex} 
                   index={remainIndex}
                   row={row} 
-                  onChangeQuantity={onChangeQuantity}/>
+                  onChangeQuantity={onChangeQuantity}
+                  onChangeComment={onChangeComment}
+                />
               );
             })
               : 

@@ -19,6 +19,7 @@ const MenuReturnsGoods = () => {
     context.remains?.map((index, item)=>{
       let remainRow = {...index}; //протестировал, `...` работает. но лучше обращать внимание на его работу
       remainRow.quantity = 0;
+      remainRow.comment = '';
       newReturnInvoice = [... newReturnInvoice, remainRow];
     });
     setReturnInvoice(newReturnInvoice);
@@ -30,6 +31,13 @@ const MenuReturnsGoods = () => {
     let rowIndex = +quantityIndex;
     (typeof newReturnInvoice[rowIndex]?.quantity === 'number' || typeof newReturnInvoice[rowIndex]?.quantity === 'string')
       ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
+    setReturnInvoice(newReturnInvoice);
+  };
+
+  const onChangeComment = (commentValue, commentIndex) => {
+    let newReturnInvoice = [...returnInvoice];
+    let rowIndex = +commentIndex;
+    newReturnInvoice[rowIndex].comment = commentValue;
     setReturnInvoice(newReturnInvoice);
   };
 
@@ -57,6 +65,7 @@ const MenuReturnsGoods = () => {
       <ReturnsGoodsTable 
         returnInvoice={returnInvoice}
         onChangeQuantity={onChangeQuantity}
+        onChangeComment={onChangeComment}
       />
       <Button variant="contained" 
         endIcon={<ReplyAllIcon/>}  

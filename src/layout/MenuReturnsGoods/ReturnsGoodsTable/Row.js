@@ -21,6 +21,17 @@ const Row = (props) => {
   const handleChangeQuantity = (e) => {
     if(typeof props.onChangeQuantity === 'function'){
       props.onChangeQuantity(e.target.value, props.index);
+      if (+e.target.value > 0){
+        setOpen(true);
+      }else{
+        setOpen(false);
+      }
+    };
+  };
+
+  const handleChangeComment = (e) => {
+    if(typeof props.onChangeComment === 'function'){
+      props.onChangeComment(e.target.value, props.index);
     };
   };
 
@@ -49,7 +60,10 @@ const Row = (props) => {
               shrink: true,
             }}
             size="small"
-            sx={{width: '80px', backgroundColor: '#FEDDC9'}}
+            sx={{
+              width: '80px', 
+              backgroundColor: '#FEDDC9'
+            }}
           />
         </TableCell>
       </TableRow>
@@ -58,32 +72,26 @@ const Row = (props) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                  History
+                причина возврата
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={stylesObj.TableCellMinPadding}>Date</TableCell>
-                    <TableCell sx={stylesObj.TableCellMinPadding}>Customer</TableCell>
-                    <TableCell align="right" sx={stylesObj.TableCellMinPadding}>Amount</TableCell>
-                    <TableCell align="right" sx={stylesObj.TableCellMinPadding}>Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell sx={stylesObj.TableCellMinPadding}>{historyRow.customerId}</TableCell>
-                      <TableCell align="right" sx={stylesObj.TableCellMinPadding}>{historyRow.amount}</TableCell>
-                      <TableCell align="right" sx={stylesObj.TableCellMinPadding}>
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <TextField
+                id="outlined-number"
+                value={row.comment}
+                type="text"
+                onChange={handleChangeComment}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                size="small"
+                sx={{
+                  width: '100%', 
+                  backgroundColor: '#FEDDC9', 
+                  borderColor: (!row.comment && row.quantity>0) ? '#f33' : null,
+                  borderRadius: '6px',
+                  borderStyle: (!row.comment && row.quantity>0) ? 'solid' : null,
+                  borderWidth: (!row.comment && row.quantity>0) ? '2px' : null,
+                }}
+              />
             </Box>
           </Collapse>
         </TableCell>
