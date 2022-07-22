@@ -25,6 +25,14 @@ const rows = [
 
 export default function AcceptanceGoodsTable(props) {
   const context = React.useContext(MyContext);
+
+
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    if(typeof props.onChangeQuantity === 'function'){
+      props.onChangeQuantity(quantityValue, quantityIndex);
+    };
+  };
+
   return (
     <div className={style.MenuTwoTable}>
       <TableContainer className={style.Paper} component={Paper}>
@@ -40,7 +48,11 @@ export default function AcceptanceGoodsTable(props) {
             {(typeof props.invoice === 'object') ? props.invoice.map((item, index) => {
               let row = createData(context.products[item.product]?.name, item.quantity);
               return (
-                <Row key={index} row={row} />
+                <Row 
+                  key={index} 
+                  index={index}
+                  row={row}
+                  onChangeQuantity={onChangeQuantity} />
               );
             })
               : 

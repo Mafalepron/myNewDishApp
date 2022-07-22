@@ -16,6 +16,15 @@ const MenuAcceptanceGoods = () => {
 
   const [invoice, setInvoice] = useState([]);
 
+
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    let newReturnInvoice = [...invoice];
+    let rowIndex = +quantityIndex;
+    (typeof newReturnInvoice[rowIndex]?.quantity === 'number' || typeof newReturnInvoice[rowIndex]?.quantity === 'string')
+      ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
+    setInvoice(newReturnInvoice);
+  };
+
   const axiGetShipmentInvoice = () => {
     axi('getShipmentInvoice.php', '', { token: context.token }).then((result) => { 
       if (result.type === 'no_authorized') {
@@ -48,7 +57,6 @@ const MenuAcceptanceGoods = () => {
               Подтвердить
       </Button>
     </div>
-
   );
 };
 

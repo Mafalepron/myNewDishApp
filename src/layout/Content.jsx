@@ -200,7 +200,7 @@ export default function Content() {
             <DensityMediumIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Бюфет
+            Буфет
           </Typography>
         </Toolbar>
       </AppBar>

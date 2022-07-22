@@ -16,10 +16,16 @@ import { MyContext } from '../../../functions/context';
 
 
 
-export default function EndRemainsTable() {
+export default function EndRemainsTable(props) {
   const { products, remains} = React.useContext(MyContext);
 
  
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    if(typeof props.onChangeQuantity === 'function'){
+      props.onChangeQuantity(quantityValue, quantityIndex);
+    };
+  };
+
   return (
     <div className={style.MenuFourTable}>
       <TableContainer className={style.Paper} component={Paper}>
@@ -32,10 +38,14 @@ export default function EndRemainsTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(typeof remains === 'object') ? remains.map((remain, remainIndex) => {
+            {(typeof props.invoice === 'object') ? props.invoice.map((remain, remainIndex) => {
               let row = createData(products[remain.product]?.name, remain.quantity);
               return (
-                <Row key={remainIndex} row={row} />
+                <Row 
+                  key={remainIndex} 
+                  index={remainIndex}
+                  row={row}
+                  onChangeQuantity={onChangeQuantity} />
               );
             })
               : 

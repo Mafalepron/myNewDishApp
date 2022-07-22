@@ -16,9 +16,15 @@ import { MyContext } from '../../../functions/context';
 
 
 
-export default function StartRemainsTable() {
+export default function StartRemainsTable(props) {
   const { products, remains} = React.useContext(MyContext);
 
+  
+  const onChangeQuantity = (quantityValue, quantityIndex) => {
+    if(typeof props.onChangeQuantity === 'function'){
+      props.onChangeQuantity(quantityValue, quantityIndex);
+    };
+  };
  
   return (
     <div className={style.MenuOneTable}>
@@ -32,10 +38,13 @@ export default function StartRemainsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {(typeof remains === 'object') ? remains.map((remain, remainIndex) => {
+          {(typeof props.invoice === 'object') ? props.invoice.map((remain, remainIndex) => {
             let row = createData(products[remain.product]?.name, remain.quantity);
             return (
-              <Row key={remainIndex} row={row} />
+              <Row key={remainIndex} 
+                index={remainIndex}
+                row={row}
+                onChangeQuantity={onChangeQuantity} />
             );
           })
             : 

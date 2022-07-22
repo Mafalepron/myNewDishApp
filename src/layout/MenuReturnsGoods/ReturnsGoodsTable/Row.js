@@ -16,6 +16,12 @@ const Row = (props) => {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   
+  const handleChangeQuantity = (e) => {
+    if(typeof props.onChangeQuantity === 'function'){
+      props.onChangeQuantity(e.target.value, props.index);
+    };
+  };
+
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -31,10 +37,13 @@ const Row = (props) => {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">
+          <input
+            value={row.quantity}
+            type="number"
+            onChange={handleChangeQuantity}
+          ></input>
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
