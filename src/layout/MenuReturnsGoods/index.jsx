@@ -1,9 +1,10 @@
 import React, {useEffect, useContext, useState} from 'react';
 import ReturnsGoodsTable from './ReturnsGoodsTable';
-import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-
+import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 import style from './index.module.css';
+import Button from '@mui/material/Button';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 
 
@@ -41,10 +42,10 @@ const MenuReturnsGoods = () => {
         onChangeQuantity={onChangeQuantity}
       />
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />} 
-        sx={{fontSize: '80%', textTransform: 'lowercase', borderRadius: '8px', width: '15%', marginTop: '10px', left: '85%' }}
-      >
-              Подтвердить
+        endIcon={<DoneOutlineIcon />} 
+        sx={stylesObj.SendRemainsButton}
+      > 
+      Отправить
       </Button>
     </div>
   );

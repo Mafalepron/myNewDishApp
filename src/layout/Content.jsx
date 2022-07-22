@@ -25,9 +25,6 @@ import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
 import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
-import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Stack from '@mui/material/Stack';
 
 
 import style from './Content.module.css';
@@ -38,12 +35,12 @@ import MenuEndRemains from './MenuEndRemains';
 import { ExitUserModal } from '../components/authorization/ExitUserModal';
 
 
-// начало табменю
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { MyContext } from '../functions/context';
+import { stylesObj } from '../stylesObj/stylesObj';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -223,26 +220,19 @@ export default function Content() {
             <Tab label={
               <ListItemButton
                 key='0'
-                sx={{
-                  display: 'flex',
-                  minHeight: 50,
-                  minWidth: 77,
-                  justifyContent: open ? 'initial' : 'left',
-                  px: 2.5,
-                }}
+                sx={stylesObj.ListItemButton}
               >
                 <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+                  sx={stylesObj.ListItemIcon}
                 >
                   <AssignmentTurnedInIcon 
                     color={value===0?'secondary':'primary'}/> 
                 </ListItemIcon>
                 {open &&
-                  <ListItemText primary='открыть смену' sx={{ opacity: open ? 1 : 0}} />
+                  <ListItemText 
+                    primary='открыть смену' 
+                    sx={stylesObj.ListItemText} 
+                  />
                 }
               </ListItemButton>
             } {...a11yProps(0)} > 
@@ -250,92 +240,75 @@ export default function Content() {
             <Tab label={
               <ListItemButton
                 key='1'
-                sx={{
-                  display: 'flex',
-                  minHeight: 50,
-                  minWidth: 77,
-                  justifyContent: open ? 'initial' : 'left',
-                  px: 2.5,
-                }}
+                sx={stylesObj.ListItemButton}
               >
                 <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+                  sx={stylesObj.ListItemIcon}
                 >
                   <AssignmentReturnedIcon 
                     color={value===1?'secondary':'primary'}/> 
                 </ListItemIcon>
                 {open &&
-                  <ListItemText primary='принять товар' sx={{ opacity: open ? 1 : 0 }} />
+                  <ListItemText 
+                    primary='принять товар' 
+                    sx={stylesObj.ListItemText}
+                  />
                 }
               </ListItemButton>
             } {...a11yProps(0)} >
                     
             </Tab>           
-            <Tab label={<ListItemButton
-              key='2'
-              sx={{
-                minHeight: 50,
-                minWidth: 77,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
+            <Tab label={
+              <ListItemButton
+                key='2'
+                sx={stylesObj.ListItemButton}
               >
-                <AssignmentReturnIcon 
-                  color={value===2?'secondary':'primary'}/> 
-              </ListItemIcon>
-              
-              {open &&
-                <ListItemText primary='вернуть товар' sx={{ opacity: open ? 1 : 0 }} />
-              }
-            </ListItemButton>} {...a11yProps(0)} >
+                <ListItemIcon
+                  sx={stylesObj.ListItemIcon}
+                >
+                  <AssignmentReturnIcon 
+                    color={value===2?'secondary':'primary'}/> 
+                </ListItemIcon>
+                
+                {open &&
+                  <ListItemText 
+                    primary='вернуть товар' 
+                    sx={stylesObj.ListItemText} 
+                  />
+                }
+              </ListItemButton>} {...a11yProps(0)} >
             </Tab>
-            <Tab label={<ListItemButton
-              key='3'
-              sx={{
-                minHeight: 50,
-                minWidth: 77,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
+            <Tab label={
+              <ListItemButton
+                key='3'
+                sx={stylesObj.ListItemButton}
               >
-                <CancelIcon 
-                  color={value===3?'secondary':'primary'}/> 
-              </ListItemIcon>
-              
-              {open &&
-                <ListItemText 
-                  primary='закрыть смену'  
-                  sx={{ opacity: open ? 1 : 0 }} />
-              }
-            </ListItemButton>} {...a11yProps(0)} >
+                <ListItemIcon
+                  sx={stylesObj.ListItemIcon}
+                >
+                  <CancelIcon 
+                    color={value===3?'secondary':'primary'}/> 
+                </ListItemIcon>
+                
+                {open &&
+                  <ListItemText 
+                    primary='закрыть смену'  
+                    sx={stylesObj.ListItemText} 
+                  />
+                }
+              </ListItemButton>} {...a11yProps(0)} >
             </Tab>
           </Tabs>
           <Divider />
         </List>
       </Drawer>
-      <Box component="main" className={style.main} sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" 
+        className={style.main} 
+        sx={stylesObj.MainBox}
+      >
         <DrawerHeader />
-        {/* табы */}
         <Box
-          sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+          sx={stylesObj.ContentBox}
         >
           <TabPanel className={style.table} value={value} index={0}>
             <MenuStartRemains />
@@ -350,7 +323,6 @@ export default function Content() {
             <MenuEndRemains />
           </TabPanel>
         </Box>
-        {/* табы */}
       </Box>
     </div>
   );

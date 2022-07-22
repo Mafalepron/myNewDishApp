@@ -1,5 +1,4 @@
 import axios from 'axios';
-export default axi;
 function axi(url, method, params) {
   return new Promise(function (resolve, reject) {       
     axios({
@@ -30,3 +29,4 @@ function axi(url, method, params) {
       });
   });  
 }  
+export default axi;

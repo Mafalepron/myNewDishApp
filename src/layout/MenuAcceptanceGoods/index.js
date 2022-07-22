@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useContext} from 'react';
 import AcceptanceGoodsTable from './AcceptanceGoodsTable';
 import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
 import axi from '../../functions/axiosf';
 import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 
 import style from './index.module.css';
@@ -49,12 +50,15 @@ const MenuAcceptanceGoods = () => {
 
   return(
     <div className={style.table}>
-      <AcceptanceGoodsTable invoice={invoice}/>
+      <AcceptanceGoodsTable 
+        invoice={invoice}
+        onChangeQuantity={onChangeQuantity}
+      />
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />} 
-        sx={{fontSize: '80%', textTransform: 'lowercase', borderRadius: '8px', width: '15%', marginTop: '10px', left: '85%' }}
-      >
-              Подтвердить
+        endIcon={<DoneOutlineIcon />} 
+        sx={stylesObj.SendRemainsButton}
+      > 
+        Отправить
       </Button>
     </div>
   );

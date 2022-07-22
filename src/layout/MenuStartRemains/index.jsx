@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import StartRemainsTable from './StartRemainsTable';
 import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import { MyContext } from '../../functions/context';
+import { stylesObj } from '../../stylesObj/stylesObj';
+
 
 import style from './index.module.css';
+import postInvoices from '../../functions/postInvoices';
 
 
 const MenuStartRemains = () => {
@@ -18,6 +22,20 @@ const MenuStartRemains = () => {
     setInvoice(newReturnInvoice);
   };
 
+  const handlePressOk = async () => {
+    let result = await postInvoices('setStartRemainsInvoice.php', context.token, invoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains);
+        }
+      }
+    }
+  };
 
   const setServerRemains = () => {
     if (!invoice.length){
@@ -36,14 +54,13 @@ const MenuStartRemains = () => {
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
       <Button variant="contained" 
-        endIcon={<CheckBoxIcon />} 
-        sx={{fontSize: '80%', textTransform: 'lowercase', borderRadius: '8px', width: '15%', marginTop: '10px', left: '85%' }}
-      >
-              Подтвердить
+        endIcon={<DoneOutlineIcon />} 
+        sx={stylesObj.SendRemainsButton}
+      > 
+        Отправить
       </Button>
     </div>
   );
 };
-
 
 export default MenuStartRemains;

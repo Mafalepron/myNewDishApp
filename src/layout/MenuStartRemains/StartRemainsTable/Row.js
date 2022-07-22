@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import TextField from '@mui/material/TextField';
 
 const Row = (props) => {
   const { row } = props;
@@ -43,11 +44,17 @@ const Row = (props) => {
         <TableCell align="right">{row.protein}</TableCell>
         */}
         <TableCell align="right">
-          <input
+          <TextField
+            id="outlined-number"
             value={row.quantity}
             type="number"
             onChange={handleChangeQuantity}
-          ></input>
+            InputLabelProps={{
+              shrink: true,
+            }}
+            size="small"
+            sx={{width: '80px', backgroundColor: '#F2F7AA'}}
+          />
         </TableCell>
 
       </TableRow>
