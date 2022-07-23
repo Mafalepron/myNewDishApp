@@ -42,7 +42,13 @@ const MenuReturnsGoods = () => {
   };
 
   const handlePressOk = async () => {
-    let result = await postInvoices('setReturnsGoodsInvoice.php', context.token, returnInvoice);
+    let postReturnInvoice = [];
+    returnInvoice.map((item, index)=>{
+      if(item.quantity>0){
+        postReturnInvoice=[...postReturnInvoice, item];
+      }
+    });
+    let result = await postInvoices('setReturnsGoodsInvoice.php', context.token, postReturnInvoice);
     if (result.type === 'no_authorized') {
       if(typeof context.userExit === 'function'){
         context.userExit();
