@@ -13,6 +13,7 @@ const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
 
   const [invoice, setInvoice] = useState([]);
+  const [basisInvoice, setBasisInvoice] = useState(0);
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -32,6 +33,7 @@ const MenuAcceptanceGoods = () => {
       }
       let invoiceId = +result?.shipmentOrders?.[0]?.id;
       setInvoice(result?.invoicesСontents?.[invoiceId]);
+      setBasisInvoice(invoiceId);
       console.log(result?.invoicesСontents?.[invoiceId]);
       
     }, 
@@ -42,7 +44,7 @@ const MenuAcceptanceGoods = () => {
   };
 
   const handlePressOk = async () => {
-    let result = await postInvoices('setAcceptanceGoodsInvoice.php', context.token, invoice);
+    let result = await postInvoices('setAcceptanceGoodsInvoice.php', context.token, invoice, basisInvoice);
     if (result.type === 'no_authorized') {
       if(typeof context.userExit === 'function'){
         context.userExit();

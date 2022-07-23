@@ -1,8 +1,8 @@
 import axi from './axiosf';
 
-const postInvoices = async (url, token, invoice) => {
+const postInvoices = async (url, token, invoice, basisInvoice) => {
   try{
-    let result = await axi(url, '', { token: token, invoice: invoice });
+    let result = await axi(url, '', { token: token, invoice: invoice, basisInvoice: basisInvoice });
      
     if (result.type === 'no_authorized') {
       console.log('авторизация не прошла');
