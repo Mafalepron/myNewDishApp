@@ -30,7 +30,7 @@ const MenuStartRemains = () => {
     } else {
       if (typeof result.remains === 'object'){
         if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains);
+          context.setRemainsState(result.remains, result.isOpen);
         }
       }
     }
