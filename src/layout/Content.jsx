@@ -150,6 +150,12 @@ export default function Content() {
   //табы
   const [value, setValue] = React.useState(0);
 
+  React.useEffect(()=>{
+    if(!context.isOpenWorkDay){
+      setValue(0);
+    }
+  },[context.isOpenWorkDay]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     switch(newValue){

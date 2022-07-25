@@ -6,6 +6,7 @@ import { stylesObj } from '../../stylesObj/stylesObj';
 import style from './index.module.css';
 import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
+import { AlertModal } from '../../components/authorization/AlertModal';
 import postInvoices from '../../functions/postInvoices';
 
 
@@ -13,6 +14,7 @@ import postInvoices from '../../functions/postInvoices';
 const MenuReturnsGoods = () => {
   const context = useContext(MyContext);
   const [returnInvoice, setReturnInvoice] = useState([]);
+  const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
 
   const setNullRemains = () => {
     let newReturnInvoice = [];
@@ -58,7 +60,9 @@ const MenuReturnsGoods = () => {
         if(typeof context.setRemainsState === 'function'){
           context.setRemainsState(result.remains, result.isOpen);
         }
+        setIsModalCompleteOpen(true);
       }
+      setNullRemains();
     }
   };
   
@@ -68,6 +72,13 @@ const MenuReturnsGoods = () => {
 
   return(
     <div className={style.table}>
+      {isModalCompleteOpen &&
+      <AlertModal 
+        text="возврат товара оформлен успешно"
+        buttonText="продолжить"
+        onClose={setIsModalCompleteOpen}
+      />
+      }
       <ReturnsGoodsTable 
         returnInvoice={returnInvoice}
         onChangeQuantity={onChangeQuantity}

@@ -8,12 +8,14 @@ import style from './index.module.css';
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
+import { AlertModal } from '../../components/authorization/AlertModal';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
 
   const [invoice, setInvoice] = useState([]);
   const [basisInvoice, setBasisInvoice] = useState(0);
+  const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -54,7 +56,9 @@ const MenuAcceptanceGoods = () => {
         if(typeof context.setRemainsState === 'function'){
           context.setRemainsState(result.remains, result.isOpen);
         }
+        setIsModalCompleteOpen(true);
       }
+      axiGetShipmentInvoice();
     }
   };
 
@@ -64,6 +68,13 @@ const MenuAcceptanceGoods = () => {
 
   return(
     <div className={style.table}>
+      {isModalCompleteOpen &&
+      <AlertModal 
+        text="товар принят успешно"
+        buttonText="продолжить"
+        onClose={setIsModalCompleteOpen}
+      />
+      }
       <AcceptanceGoodsTable 
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}
