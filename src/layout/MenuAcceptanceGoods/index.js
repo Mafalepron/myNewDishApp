@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 import { AlertModal } from '../../components/authorization/AlertModal';
+import { Typography } from '@mui/material';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
@@ -75,10 +76,17 @@ const MenuAcceptanceGoods = () => {
         onClose={setIsModalCompleteOpen}
       />
       }
-      <AcceptanceGoodsTable 
-        invoice={invoice}
-        onChangeQuantity={onChangeQuantity}
-      />
+      {invoice ?
+        <AcceptanceGoodsTable 
+          invoice={invoice}
+          onChangeQuantity={onChangeQuantity}
+        />
+        : 
+        <Typography variant="h6" gutterBottom component="div">
+          На ваш адрес пока не отправлено свежей продукции
+        </Typography>
+      }
+      {invoice &&
       <Button variant="contained" 
         endIcon={<AddIcon />} 
         onClick={handlePressOk}
@@ -86,6 +94,7 @@ const MenuAcceptanceGoods = () => {
       > 
         принять
       </Button>
+      }
     </div>
   );
 };

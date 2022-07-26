@@ -15,6 +15,7 @@ const MenuReturnsGoods = () => {
   const context = useContext(MyContext);
   const [returnInvoice, setReturnInvoice] = useState([]);
   const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
+  const [isButtonShow, setIsButtonShow] = useState(false);
 
   const setNullRemains = () => {
     let newReturnInvoice = [];
@@ -34,6 +35,7 @@ const MenuReturnsGoods = () => {
     (typeof newReturnInvoice[rowIndex]?.quantity === 'number' || typeof newReturnInvoice[rowIndex]?.quantity === 'string')
       ? newReturnInvoice[rowIndex].quantity = +quantityValue : null;
     setReturnInvoice(newReturnInvoice);
+    checkValidInvoice(newReturnInvoice);
   };
 
   const onChangeComment = (commentValue, commentIndex) => {
@@ -41,6 +43,7 @@ const MenuReturnsGoods = () => {
     let rowIndex = +commentIndex;
     newReturnInvoice[rowIndex].comment = commentValue;
     setReturnInvoice(newReturnInvoice);
+    checkValidInvoice(newReturnInvoice);
   };
 
   const handlePressOk = async () => {
@@ -65,6 +68,21 @@ const MenuReturnsGoods = () => {
       setNullRemains();
     }
   };
+
+  const checkValidInvoice = (newReturnInvoice) => {
+    let isCommentEmpty = false;
+    let isEmpty = true;
+    newReturnInvoice.map((item, index)=>{
+      if(item.quantity){
+        isEmpty = false;
+        if(!item.comment.length){
+          isCommentEmpty = true;
+        }
+      }
+    });
+    let isValidTable = !isCommentEmpty && !isEmpty;
+    setIsButtonShow(isValidTable);
+  };
   
   useEffect(()=>{
     setNullRemains();
@@ -84,6 +102,7 @@ const MenuReturnsGoods = () => {
         onChangeQuantity={onChangeQuantity}
         onChangeComment={onChangeComment}
       />
+      {isButtonShow &&
       <Button variant="contained" 
         endIcon={<ReplyAllIcon/>}  
         onClick={handlePressOk}
@@ -91,6 +110,7 @@ const MenuReturnsGoods = () => {
       > 
         вернуть
       </Button>
+      }
     </div>
 
   );
