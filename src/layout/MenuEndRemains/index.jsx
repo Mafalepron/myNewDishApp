@@ -1,11 +1,11 @@
 import React, {useEffect, useContext, useState} from 'react';
 import EndRemainsTable from './EndRemainsTable';
-import Button from '@mui/material/Button';
-import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { MyContext } from '../../functions/context';
 import { stylesObj } from '../../stylesObj/stylesObj';
-
+import Button from '@mui/material/Button';
 import style from './index.module.css';
+import CheckIcon from '@mui/icons-material/Check';
+import postInvoices from '../../functions/postInvoices';
 
 
 
@@ -29,6 +29,21 @@ const MenuEndRemains = () => {
     }
   };
 
+  const handlePressOk = async () => {
+    let result = await postInvoices('setEndRemainsInvoice.php', context.token, invoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains, result.isOpen);
+        }
+      }
+    }
+  };
+
   useEffect(()=>{
     setServerRemains();
   },[context.remains.length]);
@@ -38,12 +53,12 @@ const MenuEndRemains = () => {
       <EndRemainsTable
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
-      <Button 
-        variant="contained" 
-        endIcon={<DoneOutlineIcon />} 
+      <Button variant="contained" 
+        endIcon={<CheckIcon />}  
+        onClick={handlePressOk}
         sx={stylesObj.SendRemainsButton}
-      >
-          Подтвердить
+      > 
+        завершить смену
       </Button>
     </div>
   );

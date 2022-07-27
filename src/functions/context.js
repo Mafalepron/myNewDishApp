@@ -8,6 +8,9 @@ const MyContext = createContext({
   remains: [],
   axiLogInCashier: () => {},
   axiGetRemains:  () => {},
+  setRemainsState: () => {},
+  isOpenWorkDay: false,
+  setIsOpenWorkDay: () => {}
 });
 
 export { MyContext };

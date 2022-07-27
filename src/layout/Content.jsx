@@ -44,7 +44,7 @@ import { stylesObj } from '../stylesObj/stylesObj';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+  const context = React.useContext(MyContext);
   return (
     <div
       role="tabpanel"
@@ -150,6 +150,12 @@ export default function Content() {
   //табы
   const [value, setValue] = React.useState(0);
 
+  React.useEffect(()=>{
+    if(!context.isOpenWorkDay){
+      setValue(0);
+    }
+  },[context.isOpenWorkDay]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
     switch(newValue){
@@ -217,87 +223,96 @@ export default function Content() {
             onChange={handleChange}
                 
           >
-            <Tab label={
-              <ListItemButton
-                key='0'
-                sx={stylesObj.ListItemButton}
-              >
-                <ListItemIcon
-                  sx={stylesObj.ListItemIcon}
+            <Tab 
+              disabled = {context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='0'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <AssignmentTurnedInIcon 
-                    color={value===0?'secondary':'primary'}/> 
-                </ListItemIcon>
-                {open &&
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentTurnedInIcon 
+                      color={context.isOpenWorkDay ? 'disabled' : value===0 ? 'secondary' : 'primary'}
+                    /> 
+                  </ListItemIcon>
+                  {open &&
                   <ListItemText 
                     primary='открыть смену' 
                     sx={stylesObj.ListItemText} 
                   />
-                }
-              </ListItemButton>
-            } {...a11yProps(0)} > 
+                  }
+                </ListItemButton>
+              } {...a11yProps(0)} > 
             </Tab>
-            <Tab label={
-              <ListItemButton
-                key='1'
-                sx={stylesObj.ListItemButton}
-              >
-                <ListItemIcon
-                  sx={stylesObj.ListItemIcon}
+            <Tab 
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='1'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <AssignmentReturnedIcon 
-                    color={value===1?'secondary':'primary'}/> 
-                </ListItemIcon>
-                {open &&
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentReturnedIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===1?'secondary':'primary')}/> 
+                  </ListItemIcon>
+                  {open &&
                   <ListItemText 
                     primary='принять товар' 
                     sx={stylesObj.ListItemText}
                   />
-                }
-              </ListItemButton>
-            } {...a11yProps(0)} >
-                    
-            </Tab>           
-            <Tab label={
-              <ListItemButton
-                key='2'
-                sx={stylesObj.ListItemButton}
-              >
-                <ListItemIcon
-                  sx={stylesObj.ListItemIcon}
+                  }
+                </ListItemButton>
+              } {...a11yProps(0)} >
+            </Tab>       
+            <Tab
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='2'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <AssignmentReturnIcon 
-                    color={value===2?'secondary':'primary'}/> 
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentReturnIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===2 ? 'secondary' : 'primary')}/> 
+                  </ListItemIcon>
                 
-                {open &&
+                  {open &&
                   <ListItemText 
                     primary='вернуть товар' 
                     sx={stylesObj.ListItemText} 
                   />
-                }
-              </ListItemButton>} {...a11yProps(0)} >
+                  }
+                </ListItemButton>} {...a11yProps(0)} >
             </Tab>
-            <Tab label={
-              <ListItemButton
-                key='3'
-                sx={stylesObj.ListItemButton}
-              >
-                <ListItemIcon
-                  sx={stylesObj.ListItemIcon}
+            <Tab 
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='3'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <CancelIcon 
-                    color={value===3?'secondary':'primary'}/> 
-                </ListItemIcon>
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <CancelIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===3?'secondary':'primary')}/> 
+                  </ListItemIcon>
                 
-                {open &&
+                  {open &&
                   <ListItemText 
                     primary='закрыть смену'  
                     sx={stylesObj.ListItemText} 
                   />
-                }
-              </ListItemButton>} {...a11yProps(0)} >
+                  }
+                </ListItemButton>} {...a11yProps(0)} >
             </Tab>
+            
           </Tabs>
           <Divider />
         </List>
@@ -310,17 +325,26 @@ export default function Content() {
         <Box
           sx={stylesObj.ContentBox}
         >
+          
           <TabPanel className={style.table} value={value} index={0}>
+            {!context.isOpenWorkDay &&
             <MenuStartRemains />
+            }
           </TabPanel>
           <TabPanel className={style.table} value={value} index={1}>
+            {context.isOpenWorkDay &&
             <MenuAcceptanceGoods />
+            }
           </TabPanel>
           <TabPanel className={style.table} value={value} index={2}>
+            {context.isOpenWorkDay &&
             <MenuReturnsGoods />
+            }
           </TabPanel>
           <TabPanel className={style.table} value={value} index={3}>
+            {context.isOpenWorkDay &&
             <MenuEndRemains />
+            }
           </TabPanel>
         </Box>
       </Box>

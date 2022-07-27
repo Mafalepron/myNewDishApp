@@ -19,6 +19,8 @@ class App extends React.Component {
       userExit: this.userExit,
       axiGetRemains: this.axiGetRemains,
       setRemainsState: this.setRemainsState,
+      isOpenWorkDay: false,
+      setIsOpenWorkDay: this.setIsOpenWorkDay,
     };
   }
 
@@ -51,6 +53,10 @@ class App extends React.Component {
     this.setState({token: ''});
   };
 
+  setIsOpenWorkDay = (isOpen) => {
+    this.setState({isOpenWorkDay: isOpen});
+  };
+
   axiGetRemains = (authToken) => {
     axi('getRemains.php', '', { token: this.state.token ? this.state.token : authToken}).then((result) => { 
       if (result.type === 'no_authorized') {
@@ -60,7 +66,7 @@ class App extends React.Component {
         // this.setState({token: ''});
         // this.setState({password: ''});
       }
-      this.setRemainsState(result.remains);
+      this.setRemainsState(result.remains, result.isOpen);
     }, 
     (e) => {
       console.log(e);
@@ -68,8 +74,9 @@ class App extends React.Component {
     );
   };
 
-  setRemainsState = (remains) => {
+  setRemainsState = (remains, isOpen = 0) => {
     this.setState({remains: remains});
+    this.setState({isOpenWorkDay: isOpen});
   };
 
   //временно авторизируемся под тестовым пользователем чтобы дальше работать. 

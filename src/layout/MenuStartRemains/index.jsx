@@ -8,6 +8,8 @@ import { stylesObj } from '../../stylesObj/stylesObj';
 
 import style from './index.module.css';
 import postInvoices from '../../functions/postInvoices';
+import Button from '@mui/material/Button';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 const MenuStartRemains = () => {
@@ -31,7 +33,7 @@ const MenuStartRemains = () => {
     } else {
       if (typeof result.remains === 'object'){
         if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains);
+          context.setRemainsState(result.remains, result.isOpen);
         }
       }
     }
@@ -54,10 +56,11 @@ const MenuStartRemains = () => {
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
       <Button variant="contained" 
-        endIcon={<DoneOutlineIcon />} 
+        onClick={handlePressOk}
+        endIcon={<CheckIcon />} 
         sx={stylesObj.SendRemainsButton}
       > 
-        Отправить
+        открыть смену
       </Button>
     </div>
   );

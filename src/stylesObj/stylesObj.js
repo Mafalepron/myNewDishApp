@@ -31,13 +31,20 @@ export let stylesObj = {
   },
 
   SendRemainsButton: {
-    fontSize: '12px', 
+    display: 'flex',
+    fontSize: '14px', 
     textTransform: 'lowercase', 
-    borderRadius: '18px', 
-    marginTop: '5px', 
-    left: '85%', 
-    width: '15%'
+    borderRadius: '8px', 
+    marginTop: '16px', 
+    height: 40,
+    width: '15%',
+    minWidth: '200px',
+    alignSelf: 'flex-end',
   },
 
+  TableCellMinPadding: {
+    paddingTop: '8px',
+    paddingBottom: '8px', 
+  }
 
 };

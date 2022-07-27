@@ -3,19 +3,21 @@ import AcceptanceGoodsTable from './AcceptanceGoodsTable';
 import { MyContext } from '../../functions/context';
 import { stylesObj } from '../../stylesObj/stylesObj';
 import axi from '../../functions/axiosf';
-import Button from '@mui/material/Button';
-import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 
 import style from './index.module.css';
-
-
-
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import postInvoices from '../../functions/postInvoices';
+import { AlertModal } from '../../components/authorization/AlertModal';
+import { Typography } from '@mui/material';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
 
   const [invoice, setInvoice] = useState([]);
+  const [basisInvoice, setBasisInvoice] = useState(0);
+  const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -35,6 +37,7 @@ const MenuAcceptanceGoods = () => {
       }
       let invoiceId = +result?.shipmentOrders?.[0]?.id;
       setInvoice(result?.invoicesСontents?.[invoiceId]);
+      setBasisInvoice(invoiceId);
       console.log(result?.invoicesСontents?.[invoiceId]);
       
     }, 
@@ -44,23 +47,52 @@ const MenuAcceptanceGoods = () => {
     );
   };
 
+  const handlePressOk = async () => {
+    let result = await postInvoices('setAcceptanceGoodsInvoice.php', context.token, invoice, basisInvoice);
+    if (result.type === 'no_authorized') {
+      if(typeof context.userExit === 'function'){
+        context.userExit();
+      }
+    } else {
+      if (typeof result.remains === 'object'){
+        if(typeof context.setRemainsState === 'function'){
+          context.setRemainsState(result.remains, result.isOpen);
+        }
+        setIsModalCompleteOpen(true);
+      }
+      axiGetShipmentInvoice();
+    }
+  };
+
   useEffect(()=>{
     axiGetShipmentInvoice();
   },[]);
 
   return(
     <div className={style.table}>
-      <AcceptanceGoodsTable 
-        invoice={invoice}
-        onChangeQuantity={onChangeQuantity}
+      {isModalCompleteOpen &&
+      <AlertModal 
+        text="товар принят успешно"
+        buttonText="продолжить"
+        onClose={setIsModalCompleteOpen}
       />
+      }
+      {invoice ?
+        <AcceptanceGoodsTable 
+          invoice={invoice}
+          onChangeQuantity={onChangeQuantity}
+        />
+        : 
+        <Typography variant="h6" gutterBottom component="div">
+          На ваш адрес пока не отправлено свежей продукции
+        </Typography>
+      }
+      {invoice &&
       <Button variant="contained" 
-        endIcon={<DoneOutlineIcon />} 
-        sx={stylesObj.SendRemainsButton}
-      > 
-        Отправить
+        endIcon={<AddIcon />} 
+        onClick={handlePressOk}
       </Button>
-    </div>
+      }
   );
 };
 
