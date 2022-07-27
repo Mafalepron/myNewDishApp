@@ -74,15 +74,28 @@ export default function LoginModal(props) {
             border: '2px solid #000',
             boxShadow: (theme) => theme.shadows[5],
             p: 4,
+            '@media screen and (max-width: 400px)': {
+              height: 200,
+              width: 200,
+            }
           }}
         >
-          <Typography id="server-modal-title" variant="h6" component="h2">
+          <Typography id="server-modal-title" variant="h6" component="h2" 
+            sx={{
+              '@media screen and (max-width: 400px)': {
+                marginTop: '-15px'
+              }
+            }}>
             Добро пожаловать!
           </Typography>
           <Typography id="server-modal-title" variant="h8" component="h5">
             Введите логин и пароль, чтобы войти в систему
           </Typography>
-          <Typography id="server-modal-description" sx={{ pt: 2 }}>
+          <Typography id="server-modal-description" 
+            sx={{ 
+              pt: 2,
+              marginTop: '-10px' 
+            }}>
             <TextField
               required
               id="standard-required"
@@ -106,7 +119,16 @@ export default function LoginModal(props) {
             <Stack direction="row" spacing={2} sx={{marginLeft: '270px', marginTop: '10px'}}>
               <Button variant="contained" 
                 endIcon={<CheckBoxIcon />} 
-                sx={{fontSize: '12px', textTransform: 'lowercase', borderRadius: '8px'}}
+                sx={{
+                  fontSize: '12px', 
+                  textTransform: 'lowercase', 
+                  borderRadius: '8px',
+                  '@media screen and (max-width: 400px)': {
+                    marginLeft: '-180px',
+                    height: '25px',
+                    width: '120px'
+                  },
+                }}
                 onClick={handleClickSendForm}
                 
               >

@@ -2,7 +2,6 @@ import React from 'react';
 import Content from './layout/Content';
 import { MyContext } from './functions/context';
 import axi from './functions/axiosf';
-
 import LoginModal from './components/authorization/LoginModal';
 
 
@@ -96,7 +95,6 @@ class App extends React.Component {
         {
           this.state.token? <Content /> : <LoginModal/>
         }
-        
       </MyContext.Provider>
     );
   }

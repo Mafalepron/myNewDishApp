@@ -26,6 +26,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-map-gl": "^7.0.10",
+    "react-media": "^1.10.0",
     "react-offline-map": "^0.3.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",

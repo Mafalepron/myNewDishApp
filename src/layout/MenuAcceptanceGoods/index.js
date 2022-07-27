@@ -83,16 +83,20 @@ const MenuAcceptanceGoods = () => {
           onChangeQuantity={onChangeQuantity}
         />
         : 
-        <Typography variant="h6" gutterBottom component="div">
+        <Typography className={style.text} variant="h6" gutterBottom component="div">
           На ваш адрес пока не отправлено свежей продукции
         </Typography>
       }
       {invoice &&
-      <Button variant="contained" 
-        endIcon={<AddIcon />} 
-        onClick={handlePressOk}
-      </Button>
+        <Button variant="contained" 
+          endIcon={<AddIcon />} 
+          onClick={handlePressOk}
+          sx={stylesObj.SendRemainsButton}
+        > 
+          принять
+        </Button>
       }
+    </div>
   );
 };
 

@@ -15,6 +15,7 @@ export let stylesObj = {
   },
 
   ListItemText: {
+    fontSize: '15%',
     opacity: open ? 1 : 0
   },
 
@@ -40,11 +41,15 @@ export let stylesObj = {
     width: '15%',
     minWidth: '200px',
     alignSelf: 'flex-end',
+    marginRight: '20%',
+    '@media screen and (max-width: 400px)': {
+      height: 30,
+      marginLeft: '-50px'
+    },
   },
 
   TableCellMinPadding: {
     paddingTop: '8px',
     paddingBottom: '8px', 
-  }
-
+  },
 };

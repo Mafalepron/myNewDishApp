@@ -62,7 +62,11 @@ const Row = (props) => {
             size="small"
             sx={{
               width: '80px', 
-              backgroundColor: '#FEDDC9'
+              backgroundColor: '#FEDDC9',
+              '@media screen and (max-width: 450px)': {
+                marginRight: '70%',
+                width: '60%'
+              },
             }}
           />
         </TableCell>
