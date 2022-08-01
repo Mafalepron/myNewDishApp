@@ -266,7 +266,7 @@ export default function Content() {
                   />
                   }
                 </ListItemButton>
-              } {...a11yProps(0)} >
+              } {...a11yProps(1)} >
             </Tab>       
             <Tab
               disabled = {!context.isOpenWorkDay}
@@ -288,7 +288,8 @@ export default function Content() {
                     sx={stylesObj.ListItemText} 
                   />
                   }
-                </ListItemButton>} {...a11yProps(0)} >
+                </ListItemButton>
+              } {...a11yProps(2)} >
             </Tab>
             <Tab 
               disabled = {!context.isOpenWorkDay}
@@ -310,7 +311,8 @@ export default function Content() {
                     sx={stylesObj.ListItemText} 
                   />
                   }
-                </ListItemButton>} {...a11yProps(0)} >
+                </ListItemButton>
+              } {...a11yProps(3)} >
             </Tab>
             
           </Tabs>

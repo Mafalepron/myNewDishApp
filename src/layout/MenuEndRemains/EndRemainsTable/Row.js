@@ -49,11 +49,14 @@ const Row = (props) => {
               shrink: true,
             }}
             size="small"
-            sx={{width: '30%', backgroundColor: '#B0EEF0',
-              '@media screen and (max-width: 450px)': {
-                marginRight: '70%',
-                width: '60%'
+            sx={{width: '80px', backgroundColor: '#B0EEF0',
+              '@media screen and (max-width: 400px)': {
+                marginRight: '10%',
+                width: '80%',
               },
+              '@media screen and (max-width: 800px)': {
+                width: '50%',
+              }
             }}
           />
         </TableCell>
