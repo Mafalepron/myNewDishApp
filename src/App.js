@@ -36,11 +36,11 @@ class App extends React.Component {
         this.setState({products: newProducts}); 
         console.log(result); 
         this.axiGetRemains(result.token);
-      } else if (result.type === 'no_authorized') {
+      } else if (result.error === 'no_authorized') {
         alert('Вы не авторизованы');
       } else if (result.error === 'invalid_password'){
         alert('Неверный пароль');
-      } else if (result.type === 'no_name') {
+      } else if (result.error === 'no_name') {
         alert('Неверное имя пользователя');
       } 
     }, (e) => {
