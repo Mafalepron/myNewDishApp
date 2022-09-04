@@ -1,0 +1,50 @@
+/* .MenuThreeTable {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 50px;
+    font-size: 25px;
+} */
+
+@media screen and (max-width: 800px) {
+    .MenuThreeTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 4px;
+
+        
+    }
+  }
+
+@media screen and (max-width: 450px) {
+    .MenuThreeTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 4px;
+        
+    }
+  }
+
+  @media screen and (min-width:800px) and (max-width: 1600px) {
+    .MenuThreeTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 4px;
+
+        
+    }
+  }
+
+.Paperhead {
+    background-color: #ffb18390;
+}
+
+.Paperbody {
+    background-color: #ffb18350
+    ;
+}

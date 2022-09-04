@@ -1,0 +1,43 @@
+
+
+  @media screen and (max-width: 800px) {
+    .MenuFourTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 4px;
+
+        
+    }
+  }
+
+@media screen and (max-width: 450px) {
+    .MenuFourTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 15px;
+        
+    }
+  }
+
+  @media screen and (min-width:800px) and (max-width: 1600px) {
+    .MenuFourTable {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 15px;
+
+        
+    }
+  }
+.Paperhead {
+    background-color: #5ee6eb90;
+}
+
+.Paperbody {
+    background-color: #5ee6eb50;
+}

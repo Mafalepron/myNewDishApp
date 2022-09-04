@@ -1,16 +1,14 @@
 import axios from 'axios';
-export default axi;
 function axi(url, method, params) {
   return new Promise(function (resolve, reject) {       
     axios({
       method: 'POST',
       headers: { 
         'Content-Type': 'application/x-www-form-urlencoded', 
-        //'Content-Type': 'application/json',
         'charset': 'utf-8',
-        //'Access-Control-Allow-Headers': '*',
-        //'Access-Control-Allow-Origin': '*',
-        //'ReferrerPolicy': 'unsafe-url'
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+        'ReferrerPolicy': 'unsafe-url'
       },
       url: 'http://pies.businessmod.ru/api/v1/' + url,
       data: {
@@ -31,3 +29,4 @@ function axi(url, method, params) {
       });
   });  
 }  
+export default axi;

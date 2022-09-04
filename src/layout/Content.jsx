@@ -8,33 +8,43 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+
+
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
-
-import { MenuOne } from './MenuOne/index';
-import { MenuTwo } from './MenuTwo/index';
-import { MenuThree } from './MenuThree/index';
-import { MenuFour } from './MenuFour/index';
-import { AddUserModal } from '../components/authorization/addUserModal';
 
 
-// начало табменю
+import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
+
+import CancelIcon from '@mui/icons-material/Cancel';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+
+
+
+import style from './Content.module.css';
+import MenuStartRemains from './MenuStartRemains';
+import MenuAcceptanceGoods from './MenuAcceptanceGoods';
+import MenuReturnsGoods from './MenuReturnsGoods';
+import MenuEndRemains from './MenuEndRemains';
+import { ExitUserModal } from '../components/authorization/ExitUserModal';
+
+
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { MyContext } from '../functions/context';
+import { stylesObj } from '../stylesObj/stylesObj';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+  const context = React.useContext(MyContext);
   return (
     <div
       role="tabpanel"
@@ -85,9 +95,9 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(16)} + 1px)`,
+  width: '60px', 
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: '60px',
   },
 });
 
@@ -136,11 +146,30 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Content() {
+  const context = React.useContext(MyContext);
   //табы
   const [value, setValue] = React.useState(0);
 
+  React.useEffect(()=>{
+    if(!context.isOpenWorkDay){
+      setValue(0);
+    }
+  },[context.isOpenWorkDay]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    switch(newValue){
+      case 0:
+        if(typeof context.axiGetRemains === 'function'){
+          context.axiGetRemains();
+        }
+        break;
+      case 3:
+        if(typeof context.axiGetRemains === 'function'){
+          context.axiGetRemains();
+        }
+        break;
+    }
   };
   //конец табов
 
@@ -157,7 +186,7 @@ export default function Content() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <div className = {style.content}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -171,144 +200,156 @@ export default function Content() {
               ...(open && { display: 'none' }),
             }}
           >
-            <AirplanemodeActiveIcon />
+            <DensityMediumIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            DishApp
+            Буфет
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          { open ? <AddUserModal />
+          { open ? <ExitUserModal />
             : '' }
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List className={style.nav}>
           <Tabs
             orientation="vertical"
             // value={value}
             onChange={handleChange}
                 
           >
-            <Tab label={
-              <ListItemButton
-                key='Статус'
-                // sx={{
-                //     minHeight: 48,
-                //     justifyContent: open ? 'initial' : 'center',
-                //     px: 2.5,
-                // }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'left',
-                  }}
+            <Tab 
+              disabled = {context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='0'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <CheckCircleOutlineIcon /> 
-                </ListItemIcon>
-                <ListItemText primary='MenuOne' sx={{ opacity: open ? 1 : 0, marginRight: '-50px'}} />
-              </ListItemButton>
-            } {...a11yProps(0)} >
-                    
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentTurnedInIcon 
+                      color={context.isOpenWorkDay ? 'disabled' : value===0 ? 'secondary' : 'primary'}
+                    /> 
+                  </ListItemIcon>
+                  {open &&
+                  <ListItemText 
+                    primary='открыть смену' 
+                    sx={stylesObj.ListItemText} 
+                  />
+                  }
+                </ListItemButton>
+              } {...a11yProps(0)} > 
             </Tab>
-            <Tab label={
-              <ListItemButton
-                key='БАП'
-                sx={{
-                  display: 'flex',
-                  minHeight: 50,
-                  minWidth: 77,
-                  justifyContent: open ? 'initial' : 'left',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
+            <Tab 
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='1'
+                  sx={stylesObj.ListItemButton}
                 >
-                  <TrackChangesIcon /> 
-                </ListItemIcon>
-                <ListItemText primary='MenuTwo' sx={{ opacity: open ? 1 : 0, marginRight: '-50px' }} />
-              </ListItemButton>
-            } {...a11yProps(0)} >
-                    
-            </Tab>           
-            <Tab label={<ListItemButton
-              key='Add user'
-              sx={{
-                minHeight: 50,
-                minWidth: 77,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <AssignmentIcon /> 
-              </ListItemIcon>
-              <ListItemText primary='MenuThree' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
-            </ListItemButton>} {...a11yProps(0)} >
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentReturnedIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===1?'secondary':'primary')}/> 
+                  </ListItemIcon>
+                  {open &&
+                  <ListItemText 
+                    primary='принять товар' 
+                    sx={stylesObj.ListItemText}
+                  />
+                  }
+                </ListItemButton>
+              } {...a11yProps(1)} >
+            </Tab>       
+            <Tab
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='2'
+                  sx={stylesObj.ListItemButton}
+                >
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <AssignmentReturnIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===2 ? 'secondary' : 'primary')}/> 
+                  </ListItemIcon>
+                
+                  {open &&
+                  <ListItemText 
+                    primary='вернуть товар' 
+                    sx={stylesObj.ListItemText} 
+                  />
+                  }
+                </ListItemButton>
+              } {...a11yProps(2)} >
             </Tab>
-            <Tab label={<ListItemButton
-              key='Add user'
-              sx={{
-                minHeight: 50,
-                minWidth: 77,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}
-              >
-                <AssignmentIcon /> 
-              </ListItemIcon>
-              <ListItemText primary='MenuFour' sx={{ opacity: open ? 1 : 0, marginRight: '-70px' }} />
-            </ListItemButton>} {...a11yProps(0)} >
+            <Tab 
+              disabled = {!context.isOpenWorkDay}
+              label={
+                <ListItemButton
+                  key='3'
+                  sx={stylesObj.ListItemButton}
+                >
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <CancelIcon 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===3?'secondary':'primary')}/> 
+                  </ListItemIcon>
+                
+                  {open &&
+                  <ListItemText 
+                    primary='закрыть смену'  
+                    sx={stylesObj.ListItemText} 
+                  />
+                  }
+                </ListItemButton>
+              } {...a11yProps(3)} >
             </Tab>
+            
           </Tabs>
           <Divider />
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" 
+        className={style.main} 
+        sx={stylesObj.MainBox}
+      >
         <DrawerHeader />
-        {/* табы */}
         <Box
-          sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+          sx={stylesObj.ContentBox}
         >
-          <TabPanel value={value} index={0}>
-            <MenuOne />
+          
+          <TabPanel className={style.table} value={value} index={0}>
+            {!context.isOpenWorkDay &&
+            <MenuStartRemains />
+            }
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <MenuTwo />
+          <TabPanel className={style.table} value={value} index={1}>
+            {context.isOpenWorkDay &&
+            <MenuAcceptanceGoods />
+            }
           </TabPanel>
-          <TabPanel value={value} index={2}>
-            <MenuThree />
+          <TabPanel className={style.table} value={value} index={2}>
+            {context.isOpenWorkDay &&
+            <MenuReturnsGoods />
+            }
           </TabPanel>
-          <TabPanel value={value} index={3}>
-            <MenuFour />
+          <TabPanel className={style.table} value={value} index={3}>
+            {context.isOpenWorkDay &&
+            <MenuEndRemains />
+            }
           </TabPanel>
         </Box>
-        {/* табы */}
       </Box>
-    </Box>
+    </div>
   );
 }

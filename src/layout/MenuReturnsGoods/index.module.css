@@ -1,0 +1,5 @@
+.table {
+    display: flex;
+    /* flex: 1 1 333.3px; */
+    flex-direction: column;
+}

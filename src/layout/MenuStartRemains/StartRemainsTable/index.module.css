@@ -1,0 +1,49 @@
+/* .MenuOneTable {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 50px;
+    font-size: 25px;
+} */
+
+@media screen and (max-width: 800px) {
+    .MenuOneTable {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+        font-size: 4px;
+
+        
+    }
+  }
+
+@media screen and (max-width: 450px) {
+    .MenuOneTable {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 10px;
+        font-size: 15px;
+        
+    }
+  }
+
+  @media screen and (min-width:800px) and (max-width: 1600px) {
+    .MenuOneTable {
+        width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 10px;
+        font-size: 15px;
+
+        
+    }
+  }
+
+.Paperhead {
+    background-color: #e5f13090;
+}
+
+.Paperbody {
+    background-color: #e5f13050;
+}

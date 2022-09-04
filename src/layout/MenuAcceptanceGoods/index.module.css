@@ -1,0 +1,9 @@
+.table {
+    display: flex;
+    flex-direction: column;
+}
+
+.text {
+    padding: 10%;
+    font-size: 30%;
+}
