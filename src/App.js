@@ -24,7 +24,30 @@ class App extends React.Component {
   }
 
 
-  axiLogInCashier = (login = this.state.name, pass = this.state.password) => {
+  axiLogInCashier = async (login = this.state.name, pass = this.state.password) => {
+    try {
+      let result = await axi('logInCashier.php', '', {name: login, password:  pass});
+      if (result.type === 'approved') {
+        this.setState({token: result.token});
+        let newProducts = {};        
+        for (let product of result.products) {
+          newProducts[product.id] = product;
+        };
+        this.setState({products: newProducts}); 
+        this.axiGetRemains(result.token);
+        return ('авторизация прошла успешно');
+      } else if (result.error === 'no_authorized') {
+        return('Неверное имя пользователя');
+      } else if (result.error === 'invalid_password'){
+        return('Неверный пароль');
+      } else if (result.error === 'no_name') {
+        return('введите имя пользователя');
+      } 
+      return (result.type);
+    } catch (e) {
+      return (e);
+    }
+    /* 
     axi('logInCashier.php', '', {name: login, password:  pass}).then((result) => {
       if (result.type === 'approved') {
         console.log('Данные подтверждены');
@@ -46,6 +69,7 @@ class App extends React.Component {
     }, (e) => {
     }
     );
+     */
   };
 
   userExit = () => {
