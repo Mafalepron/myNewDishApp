@@ -3,16 +3,18 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Stack from '@mui/material/Stack';
+import LoadingButton from '@mui/lab/LoadingButton';
+import LoginIcon from '@mui/icons-material/Login';
 import { MyContext } from '../../functions/context';
 
+let margin = {marginTop: '18px'};
 
 export default function LoginModal(props) {
   const context = React.useContext(MyContext);
   const [login, setLogin] = React.useState('');
   const [pass, setPass] = React.useState('');
+  const [isWaiting, setIsWaiting] = React.useState(false);
+  const [textError, setTextError] = React.useState('');
   const rootRef = React.useRef(null);
 
 
@@ -24,12 +26,15 @@ export default function LoginModal(props) {
     setPass(e.target.value);
   };
 
-  const handleClickSendForm = () => {
+  const handleClickSendForm = async () => {
+    setIsWaiting(true);
     if (typeof context.axiLogInCashier === 'function'){
-      context.axiLogInCashier(login, pass);
+      let result = await context.axiLogInCashier(login, pass);
+      setTextError(result);
     }else{
-      alert('функция не найдена');
+      setTextError('функция не найдена');
     }
+    setIsWaiting(false);
   };
 
   const handleKeyDown = (e)=>{
@@ -41,9 +46,7 @@ export default function LoginModal(props) {
   return (
     <Box
       sx={{
-        height: 300,
-        flexGrow: 1,
-        minWidth: 300,
+        height: '100vh',
         transform: 'translateZ(0)',
         '@media all and (-ms-high-contrast: none)': {
           display: 'none',
@@ -68,74 +71,57 @@ export default function LoginModal(props) {
       >
         <Box
           sx={{
+            display: 'flex',
+            flexDirection: 'column',
             position: 'relative',
-            width: 400,
             bgcolor: 'background.paper',
             border: '2px solid #000',
             boxShadow: (theme) => theme.shadows[5],
             p: 4,
-            '@media screen and (max-width: 400px)': {
-              height: 200,
-              width: 200,
-            }
           }}
         >
-          <Typography id="server-modal-title" variant="h6" component="h2" 
-            sx={{
-              '@media screen and (max-width: 400px)': {
-                marginTop: '-15px'
-              }
-            }}>
+          <Typography id="server-modal-title" variant="h6" component="h2">
             Добро пожаловать!
           </Typography>
           <Typography id="server-modal-title" variant="h8" component="h5">
             Введите логин и пароль, чтобы войти в систему
           </Typography>
-          <Typography id="server-modal-description" 
-            sx={{ 
-              pt: 2,
-              marginTop: '-10px' 
-            }}>
-            <TextField
-              required
-              id="standard-required"
-              label="Логин"
-              variant="standard"
-              onChange={handleChangeLogin}
-              value={login}
-              onKeyDown={handleKeyDown}
-            />
-            &nbsp;&nbsp;&nbsp;
-            <TextField
-              id="standard-password-input"
-              label="Пароль"
-              type="password"
-              autoComplete="current-password"
-              variant="standard"
-              onChange={handleChangePass}
-              value={pass}
-              onKeyDown={handleKeyDown}
-            />
-            <Stack direction="row" spacing={2} sx={{marginLeft: '270px', marginTop: '10px'}}>
-              <Button variant="contained" 
-                endIcon={<CheckBoxIcon />} 
-                sx={{
-                  fontSize: '12px', 
-                  textTransform: 'lowercase', 
-                  borderRadius: '8px',
-                  '@media screen and (max-width: 400px)': {
-                    marginLeft: '-180px',
-                    height: '25px',
-                    width: '120px'
-                  },
-                }}
-                onClick={handleClickSendForm}
-                
-              >
-                Подтвердить
-              </Button>
-            </Stack>
-          </Typography>
+          <TextField
+            required
+            id="standard-required"
+            label="Логин"
+            variant="outlined"
+            onChange={handleChangeLogin}
+            value={login}
+            onKeyDown={handleKeyDown}
+            sx={margin}
+          />
+          <TextField
+            required
+            id="standard-password-input"
+            label="Пароль"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            onChange={handleChangePass}
+            value={pass}
+            onKeyDown={handleKeyDown}
+            sx={margin}
+            error={textError}
+            helperText={textError}
+          />
+          <LoadingButton 
+            variant="contained"
+            color="success"
+            disabled={isWaiting || !login || !pass}
+            loading={isWaiting}
+            loadingPosition="end"
+            endIcon={<LoginIcon/>}
+            onClick={handleClickSendForm}
+            sx={margin}
+          >
+              Войти
+          </LoadingButton>
         </Box>
       </Modal>
     </Box>
