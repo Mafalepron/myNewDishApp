@@ -20,6 +20,7 @@ class App extends React.Component {
       setRemainsState: this.setRemainsState,
       isOpenWorkDay: false,
       setIsOpenWorkDay: this.setIsOpenWorkDay,
+      point: {},
     };
   }
 
@@ -28,13 +29,13 @@ class App extends React.Component {
     try {
       let result = await axi('logInCashier.php', '', {name: login, password:  pass});
       if (result.type === 'approved') {
-        this.setState({token: result.token});
         let newProducts = {};        
         for (let product of result.products) {
           newProducts[product.id] = product;
         };
         this.setState({products: newProducts}); 
         this.axiGetRemains(result.token);
+        this.setState({token: result.token});
         return ('авторизация прошла успешно');
       } else if (result.error === 'no_authorized') {
         return('Неверное имя пользователя');
@@ -89,7 +90,7 @@ class App extends React.Component {
         // this.setState({token: ''});
         // this.setState({password: ''});
       }
-      this.setRemainsState(result.remains, result.isOpen);
+      this.setRemainsState(result.remains, result.isOpen, result.point);
     }, 
     (e) => {
       console.log(e);
@@ -97,8 +98,17 @@ class App extends React.Component {
     );
   };
 
-  setRemainsState = (remains, isOpen = 0) => {
-    this.setState({remains: remains});
+  setRemainsState = (remains, isOpen = 0, point) => {
+    if (remains){
+      this.setState({remains: remains});
+    }else{
+      alert('остатки не подгрузились!');
+    }
+    if (point){
+      this.setState({point: point});
+    }else{
+      alert('данные о точке не подгрузились!');
+    }
     this.setState({isOpenWorkDay: isOpen});
   };
 

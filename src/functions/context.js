@@ -10,7 +10,8 @@ const MyContext = createContext({
   axiGetRemains:  () => {},
   setRemainsState: () => {},
   isOpenWorkDay: false,
-  setIsOpenWorkDay: () => {}
+  setIsOpenWorkDay: () => {},
+  point: {}
 });
 
 export { MyContext };

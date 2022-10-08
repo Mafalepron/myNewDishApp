@@ -203,7 +203,7 @@ export default function Content() {
             <DensityMediumIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Буфет
+            Буфет {context.point.name ? context.point.name : 'неизвестная точка'}  {context.point.address ? context.point.address : ''} 
           </Typography>
         </Toolbar>
       </AppBar>
