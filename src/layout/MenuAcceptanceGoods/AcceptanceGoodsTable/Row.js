@@ -41,12 +41,6 @@ const Row = (props) => {
         <TableCell sx={stylesObj.TableCellMinPadding} component="th" scope="row">
           {row.name}
         </TableCell>
-        {/* 
-        <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
-        <TableCell align="right">{row.carbs}</TableCell>
-        <TableCell align="right">{row.protein}</TableCell>
-        */}
         <TableCell sx={stylesObj.TableCellMinPadding} align="right">
           <TextField
             id="outlined-number"

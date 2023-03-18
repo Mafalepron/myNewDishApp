@@ -18,8 +18,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentReturnedIcon from '@mui/icons-material/AssignmentReturned';
-
 import CancelIcon from '@mui/icons-material/Cancel';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
@@ -41,6 +41,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { MyContext } from '../functions/context';
 import { stylesObj } from '../stylesObj/stylesObj';
+import Dashboard from './Dashboard';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -152,19 +153,19 @@ export default function Content() {
 
   React.useEffect(()=>{
     if(!context.isOpenWorkDay){
-      setValue(0);
+      setValue(1);
     }
   },[context.isOpenWorkDay]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     switch(newValue){
-      case 0:
+      case 1:
         if(typeof context.axiGetRemains === 'function'){
           context.axiGetRemains();
         }
         break;
-      case 3:
+      case 4:
         if(typeof context.axiGetRemains === 'function'){
           context.axiGetRemains();
         }
@@ -219,22 +220,46 @@ export default function Content() {
         <List className={style.nav}>
           <Tabs
             orientation="vertical"
-            // value={value}
+            value={value}
             onChange={handleChange}
                 
           >
             <Tab 
+              key={0}
+              label={
+                <ListItemButton
+                  key={0}
+                  sx={stylesObj.ListItemButton}
+                >
+                  <ListItemIcon
+                    sx={stylesObj.ListItemIcon}
+                  >
+                    <DashboardIcon 
+                      color={value===0 ? 'secondary' : 'primary'}
+                    /> 
+                  </ListItemIcon>
+                  {open &&
+                  <ListItemText 
+                    primary='статистика' 
+                    sx={stylesObj.ListItemText} 
+                  />
+                  }
+                </ListItemButton>
+              } {...a11yProps(0)} > 
+            </Tab>
+            <Tab 
+              key={1}
               disabled = {context.isOpenWorkDay}
               label={
                 <ListItemButton
-                  key='0'
+                  key={1}
                   sx={stylesObj.ListItemButton}
                 >
                   <ListItemIcon
                     sx={stylesObj.ListItemIcon}
                   >
                     <AssignmentTurnedInIcon 
-                      color={context.isOpenWorkDay ? 'disabled' : value===0 ? 'secondary' : 'primary'}
+                      color={context.isOpenWorkDay ? 'disabled' : value===1 ? 'secondary' : 'primary'}
                     /> 
                   </ListItemIcon>
                   {open &&
@@ -244,20 +269,21 @@ export default function Content() {
                   />
                   }
                 </ListItemButton>
-              } {...a11yProps(0)} > 
+              } {...a11yProps(1)} > 
             </Tab>
             <Tab 
+              key={2}
               disabled = {!context.isOpenWorkDay}
               label={
                 <ListItemButton
-                  key='1'
+                  key={2}
                   sx={stylesObj.ListItemButton}
                 >
                   <ListItemIcon
                     sx={stylesObj.ListItemIcon}
                   >
                     <AssignmentReturnedIcon 
-                      color={!context.isOpenWorkDay ? 'disabled' : (value===1?'secondary':'primary')}/> 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===2?'secondary':'primary')}/> 
                   </ListItemIcon>
                   {open &&
                   <ListItemText 
@@ -266,20 +292,21 @@ export default function Content() {
                   />
                   }
                 </ListItemButton>
-              } {...a11yProps(1)} >
+              } {...a11yProps(2)} >
             </Tab>       
             <Tab
+              key={3}
               disabled = {!context.isOpenWorkDay}
               label={
                 <ListItemButton
-                  key='2'
+                  key={3}
                   sx={stylesObj.ListItemButton}
                 >
                   <ListItemIcon
                     sx={stylesObj.ListItemIcon}
                   >
                     <AssignmentReturnIcon 
-                      color={!context.isOpenWorkDay ? 'disabled' : (value===2 ? 'secondary' : 'primary')}/> 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===3 ? 'secondary' : 'primary')}/> 
                   </ListItemIcon>
                 
                   {open &&
@@ -289,20 +316,21 @@ export default function Content() {
                   />
                   }
                 </ListItemButton>
-              } {...a11yProps(2)} >
+              } {...a11yProps(3)} >
             </Tab>
             <Tab 
+              key={4}
               disabled = {!context.isOpenWorkDay}
               label={
                 <ListItemButton
-                  key='3'
+                  key={4}
                   sx={stylesObj.ListItemButton}
                 >
                   <ListItemIcon
                     sx={stylesObj.ListItemIcon}
                   >
                     <CancelIcon 
-                      color={!context.isOpenWorkDay ? 'disabled' : (value===3?'secondary':'primary')}/> 
+                      color={!context.isOpenWorkDay ? 'disabled' : (value===4?'secondary':'primary')}/> 
                   </ListItemIcon>
                 
                   {open &&
@@ -312,7 +340,7 @@ export default function Content() {
                   />
                   }
                 </ListItemButton>
-              } {...a11yProps(3)} >
+              } {...a11yProps(4)} >
             </Tab>
             
           </Tabs>
@@ -329,21 +357,24 @@ export default function Content() {
         >
           
           <TabPanel className={style.table} value={value} index={0}>
+            <Dashboard />
+          </TabPanel>
+          <TabPanel className={style.table} value={value} index={1}>
             {!context.isOpenWorkDay &&
             <MenuStartRemains />
             }
           </TabPanel>
-          <TabPanel className={style.table} value={value} index={1}>
+          <TabPanel className={style.table} value={value} index={2}>
             {context.isOpenWorkDay &&
             <MenuAcceptanceGoods />
             }
           </TabPanel>
-          <TabPanel className={style.table} value={value} index={2}>
+          <TabPanel className={style.table} value={value} index={3}>
             {context.isOpenWorkDay &&
             <MenuReturnsGoods />
             }
           </TabPanel>
-          <TabPanel className={style.table} value={value} index={3}>
+          <TabPanel className={style.table} value={value} index={4}>
             {context.isOpenWorkDay &&
             <MenuEndRemains />
             }

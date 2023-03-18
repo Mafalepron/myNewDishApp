@@ -21,7 +21,7 @@ function axi(url, method, params) {
       referrerPolicy: 'unsafe-url', 
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         resolve(res.data);
       })
       .catch((error) => {

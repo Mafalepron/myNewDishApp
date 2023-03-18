@@ -18,7 +18,7 @@ class App extends React.Component {
       userExit: this.userExit,
       axiGetRemains: this.axiGetRemains,
       setRemainsState: this.setRemainsState,
-      isOpenWorkDay: false,
+      isOpenWorkDay: true,
       setIsOpenWorkDay: this.setIsOpenWorkDay,
       point: {},
     };
