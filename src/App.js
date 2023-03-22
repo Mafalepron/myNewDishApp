@@ -104,7 +104,7 @@ class App extends React.Component {
     }else{
       alert('остатки не подгрузились!');
     }
-    if (point){
+    if (point.id){
       this.setState({point: point});
     }else{
       alert('данные о точке не подгрузились!');

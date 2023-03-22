@@ -5,11 +5,14 @@
     font-size: 25px;
 } */
 
+ .MenuTwoTable {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+ }
+
 @media screen and (max-width: 800px) {
     .MenuTwoTable {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
         margin-left: 5%;
         font-size: 4px;
 
@@ -19,9 +22,6 @@
 
 @media screen and (max-width: 450px) {
     .MenuTwoTable {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
         margin-left: 10px;
         font-size: 15px;
         
@@ -30,9 +30,6 @@
 
   @media screen and (min-width:800px) and (max-width: 1600px) {
     .MenuTwoTable {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
         margin-left: 10px;
         font-size: 15px;
 
