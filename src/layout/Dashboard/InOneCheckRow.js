@@ -36,10 +36,12 @@ const InOneCheckRow = (props) => {
         <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
           {row.quantityInCheck}
         </TableCell>
-        <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
-          {row.accumulatedResult}
+        <TableCell component="th" scope="row" align="right" sx={stylesObj.TableCellMinPadding}>
+          {props.plan ?
+            row.quantity
+            :row.accumulatedResult}
         </TableCell>
-        <TableCell component="th" scope="row" sx={stylesObj.TableCellMinPadding}>
+        <TableCell component="th" scope="row" align="right" sx={stylesObj.TableCellMinPadding}>
           {row.remuneration}
         </TableCell>
       </TableRow>
