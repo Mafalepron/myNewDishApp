@@ -46,7 +46,7 @@ export default function AcceptanceGoodsTable(props) {
           </TableHead>
           <TableBody>
             {(typeof props.invoice === 'object') ? props.invoice.map((item, index) => {
-              let row = createData(context.products[item.product]?.name, item.quantity);
+              let row = createData(context.products[item.product]?.name, item.quantity, item.comment);
               return (
                 <Row 
                   key={index} 

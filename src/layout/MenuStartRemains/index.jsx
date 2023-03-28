@@ -13,7 +13,13 @@ import CheckIcon from '@mui/icons-material/Check';
 
 const MenuStartRemains = () => {
   const context = useContext(MyContext);
-  const [invoice, setInvoice] = useState([...context.remains]);
+  const [invoice, setInvoice] = useState([]);
+  useEffect(()=>{
+    if(typeof context.remains === 'object' && context.remains.length > 0){
+      let newRemains = [...context.remains];
+      setInvoice(newRemains);
+    }
+  }, [context.remains]);
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
     let newReturnInvoice = [...invoice];

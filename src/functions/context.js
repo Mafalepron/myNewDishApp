@@ -9,8 +9,9 @@ const MyContext = createContext({
   axiLogInCashier: () => {},
   axiGetRemains:  () => {},
   setRemainsState: () => {},
-  isOpenWorkDay: false,
-  setIsOpenWorkDay: () => {}
+  isOpenWorkDay: true,
+  setIsOpenWorkDay: () => {},
+  point: {}
 });
 
 export { MyContext };

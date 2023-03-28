@@ -90,6 +90,7 @@ export default function LoginModal(props) {
             required
             id="standard-required"
             label="Логин"
+            type="text"
             variant="outlined"
             onChange={handleChangeLogin}
             value={login}
@@ -107,7 +108,7 @@ export default function LoginModal(props) {
             value={pass}
             onKeyDown={handleKeyDown}
             sx={margin}
-            error={textError}
+            error={!!textError}
             helperText={textError}
           />
           <LoadingButton 

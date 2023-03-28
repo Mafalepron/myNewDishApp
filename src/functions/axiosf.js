@@ -10,7 +10,7 @@ function axi(url, method, params) {
         'Access-Control-Allow-Origin': '*',
         'ReferrerPolicy': 'unsafe-url'
       },
-      url: 'http://pies.businessmod.ru/api/v1/' + url,
+      url: 'https://pies.businessmod.ru/api/v1/' + url,
       data: {
         'jsonrpc': '2.0',
         'id': 1,
@@ -21,7 +21,7 @@ function axi(url, method, params) {
       referrerPolicy: 'unsafe-url', 
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         resolve(res.data);
       })
       .catch((error) => {

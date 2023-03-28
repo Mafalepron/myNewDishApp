@@ -1,4 +1,4 @@
-const createData = (name, /* calories, fat, carbs, protein, price,  */quantity) => {
+const createData = (name, /* calories, fat, carbs, protein, price,  */quantity, comment) => {
   return {
     name,
     //calories,
@@ -7,18 +7,7 @@ const createData = (name, /* calories, fat, carbs, protein, price,  */quantity) 
     //protein,
     //price,
     quantity,
-    history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3,
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
-      },
-    ],
+    comment
   };
 };
 

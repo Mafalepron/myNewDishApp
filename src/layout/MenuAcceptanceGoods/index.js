@@ -5,12 +5,23 @@ import { stylesObj } from '../../stylesObj/stylesObj';
 import axi from '../../functions/axiosf';
 
 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 import style from './index.module.css';
+import childrenStyles from './AcceptanceGoodsTable/index.module.css';
+
 import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 import { AlertModal } from '../../components/authorization/AlertModal';
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
+
+
+import moment from 'moment';
+import 'moment/locale/ru';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
@@ -18,6 +29,9 @@ const MenuAcceptanceGoods = () => {
   const [invoice, setInvoice] = useState([]);
   const [basisInvoice, setBasisInvoice] = useState(0);
   const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
+  
+  const [invoicesArr, setInvoicesArr] = useState({});
+  const [shipmentOrders, setShipmentOrders] = useState([]);
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -31,11 +45,11 @@ const MenuAcceptanceGoods = () => {
   const axiGetShipmentInvoice = () => {
     axi('getShipmentInvoice.php', '', { token: context.token }).then((result) => { 
       if (result.type === 'no_authorized') {
-        console.log('авторизация не прошла');
-      } else {
-        console.log('авторизация прошла');
-      }
+        alert('авторизация не прошла');
+      } 
       let invoiceId = +result?.shipmentOrders?.[0]?.id;
+      setInvoicesArr(result?.invoicesСontents);
+      setShipmentOrders(result?.shipmentOrders);
       setInvoice(result?.invoicesСontents?.[invoiceId]);
       setBasisInvoice(invoiceId);
       console.log(result?.invoicesСontents?.[invoiceId]);
@@ -45,6 +59,12 @@ const MenuAcceptanceGoods = () => {
       console.log(e);
     }
     );
+  };
+
+  const handleChangeInvoice = (event) => {
+    let newInvoiceId = event.target.value;
+    setBasisInvoice(newInvoiceId);
+    setInvoice(invoicesArr?.[newInvoiceId]);
   };
 
   const handlePressOk = async () => {
@@ -77,6 +97,26 @@ const MenuAcceptanceGoods = () => {
         onClose={setIsModalCompleteOpen}
       />
       }
+      <div className={childrenStyles.MenuTwoTable}>
+        <FormControl>
+          <InputLabel id="demo-simple-select-label">Накладная</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={basisInvoice}
+            label="Накладная"
+            onChange={handleChangeInvoice}
+          >
+            {shipmentOrders.map((item, index)=>
+              <MenuItem 
+                key={index} 
+                value={item.id}>
+                <b>№{item.id}</b> от {moment(+item.time * 1000).format('LLL')} 
+              </MenuItem>)}
+          </Select>
+        </FormControl>
+        <Divider sx={{marginTop: 1, marginBottom: 1}}/>
+      </div>
       {invoice ?
         <AcceptanceGoodsTable 
           invoice={invoice}
