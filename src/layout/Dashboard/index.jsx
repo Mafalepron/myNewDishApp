@@ -30,20 +30,30 @@ import CheckIcon from '@mui/icons-material/Check';
 import axi from '../../functions/axiosf';
 import InOneCheckRow from './InOneCheckRow';
 import ShelfPositionRow from './ShelfPositionRow';
+import ShelfCategoryRow from './ShelfCategoryRow';
 import { Divider } from '@mui/material';
 import copyObj from '../../functions/copyObj';
 
 
 const Dashboard = () => {
   const context = useContext(MyContext);
+
   const [oneCheckMotivationsSettings, setOneCheckMotivationsSettings] = useState([]);
   const [shelfPositionMotivationsSettings, setShelfPositionMotivationsSettings] = useState([]);
+  const [shelfCategoryMotivationsSettings, setShelfCategoryMotivationsSettings] = useState([]);
+
   const [allOneCheckMotivations, setAllOneCheckMotivations] = useState([]);
   const [allShelfMotivation, setAllShelfMotivation] = useState([]);
+  const [allCategoryMotivation, setAllCategoryMotivation] = useState([]);
+
   const [filteringOneCheckMotivations, setFilteringOneCheckMotivations] = useState([]);
   const [filteringShelfMotivations, setFilteringShelfMotivations] = useState([]);
+  const [filteringCategoryMotivations, setFilteringCategoryMotivations] = useState([]);
+
   const [filteringLeftOneCheckMotivations, setFilteringLeftOneCheckMotivations] = useState([]);
   const [filteringLeftShelfMotivations, setFilteringLeftShelfMotivations] = useState([]);
+  const [filteringLeftCategoryMotivations, setFilteringLeftCategoryMotivations] = useState([]);
+
   const [remunerationSum, setRemunerationSum] = useState(0);
   const [remunerationLeftSum, setRemunerationLeftSum] = useState(0);
   const [isWait, setIsWait] = useState(false);
@@ -58,8 +68,13 @@ const Dashboard = () => {
         { token: context.token });
       setOneCheckMotivationsSettings(motivationResults?.oneCheckMotivations);  
       setShelfPositionMotivationsSettings(motivationResults?.shelfPositionMotivations);
+      setShelfCategoryMotivationsSettings(motivationResults?.shelfCategoryMotivations);
+
       setAllOneCheckMotivations(motivationResults?.oneCheckMotivationRemunerations);
       setAllShelfMotivation(motivationResults?.shelfPositionMotivationRemunerations);
+      setAllCategoryMotivation(motivationResults?.shelfCategoryMotivationRemunerations);
+
+      /////////////////
 
       let newOneCheckFilter = copyObj(motivationResults?.oneCheckMotivationRemunerations);
       let newOneCheckLeftFilter = copyObj(motivationResults?.oneCheckMotivationRemunerations);
@@ -124,8 +139,10 @@ const Dashboard = () => {
       });
       setFilteringLeftOneCheckMotivations(OneCheckRemunerationLeftFilter);
 
-      
+      ///////////////
+      /// теперь то же самое по каждому товару
       let newShelfPositionFilter = copyObj(motivationResults?.shelfPositionMotivationRemunerations);
+      
       let newShelfPositionMotivationsSettings = copyObj(motivationResults?.shelfPositionMotivations);
       newShelfPositionFilter.map((item, index) => {
         let remuneration = 0;
@@ -163,7 +180,7 @@ const Dashboard = () => {
       newShelfPositionLeftFilter.map((item, index) => {
         let remuneration = 0;
         //берём цели, до которых осталось 3 продажи
-        let motivationsSettingsLeftArray = newOneCheckMotivationsSettings?.filter((setting)=>{
+        let motivationsSettingsLeftArray = newShelfPositionMotivationsSettings?.filter((setting)=>{
           return(
             item.productId == setting.product
             && +setting.quantity - +item.accumulatedResult <= 3
@@ -183,6 +200,71 @@ const Dashboard = () => {
       });
       setFilteringLeftShelfMotivations(ShelfPositionRemunerationLeftFilter);
       ////////////////////////////
+
+      /// теперь то же самое по каждой категории
+      let newShelfCategoryFilter = copyObj(motivationResults?.shelfCategoryMotivationRemunerations);
+
+      let newShelfCategoryMotivationsSettings = copyObj(motivationResults?.shelfCategoryMotivations);
+
+      newShelfCategoryFilter.map((item, index) => {
+        let remuneration = 0;
+        //пока что возьмём только достигнутые цели
+        let motivationsSettingsArray = newShelfCategoryMotivationsSettings?.filter((setting)=>{
+          return(
+            item.productId == setting.product
+            && item.accumulatedResult >= setting.quantity
+          );
+        });
+        motivationsSettingsArray.sort((a, b) => {
+          if (+a.quantity > +b.quantity) {
+            return -1;
+          }
+          if (+a.quantity == +b.quantity) {
+            return 0;
+          }
+          if (+a.quantity < +b.quantity) {
+            return 1;
+          }
+          return 0;
+        });
+        remuneration = motivationsSettingsArray[0].remuneration;
+        newShelfCategoryFilter[index].remuneration = remuneration;
+        remunerationSum = remunerationSum + remuneration;
+      });
+      let ShelfCategoryRemunerationFilter = newShelfCategoryFilter?.filter((setting)=>{
+        return(!!setting.remuneration);
+      });
+      setFilteringCategoryMotivations(ShelfCategoryRemunerationFilter);
+
+
+
+      let newShelfCategoryLeftFilter = copyObj(motivationResults?.shelfCategoryMotivationRemunerations);
+      newShelfCategoryLeftFilter.map((item, index) => {
+        let remuneration = 0;
+        //берём цели, до которых осталось 3 продажи
+        let motivationsSettingsLeftArray = newShelfCategoryMotivationsSettings?.filter((setting)=>{
+          return(
+            item.productId == setting.product
+            && +setting.quantity - +item.accumulatedResult <= 3
+            && +setting.quantity - +item.accumulatedResult > 0
+          );
+        });
+
+        remuneration = motivationsSettingsLeftArray[0].remuneration;
+        leftSum = leftSum + remuneration;
+        newShelfCategoryLeftFilter[index].remuneration = remuneration;
+        newShelfCategoryLeftFilter[index].accumulatedResult = +motivationsSettingsLeftArray[0].quantity - +item.accumulatedResult;
+      });
+      
+      //тут нужно отфильтровать те , у которых есть достижения
+      let ShelfCategoryRemunerationLeftFilter = newShelfCategoryLeftFilter?.filter((setting)=>{
+        return(!!setting.remuneration);
+      });
+      setFilteringLeftCategoryMotivations(ShelfCategoryRemunerationLeftFilter);
+      ////////////////////////////
+
+
+
       setRemunerationSum(remunerationSum);
       setRemunerationLeftSum(leftSum);
 
@@ -262,12 +344,13 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
           <Divider sx={{marginTop: 1, marginBottom: 1}}/>
+
+          {/* 
           <Typography>больше продаж конкретного товара.</Typography>
           <TableContainer className={style.Paper} component={Paper}>
             <Table aria-label="collapsible table" className={style.Paperbody}>
               <TableHead>
                 <TableRow className={style.Paperhead}>
-                  {/* <TableCell /> */}
                   <TableCell>товар</TableCell>
                   <TableCell align="right">продано, шт</TableCell>
                   <TableCell align="right">премия, руб</TableCell>
@@ -277,6 +360,35 @@ const Dashboard = () => {
                 {(typeof filteringShelfMotivations === 'object') ? filteringShelfMotivations.map((remuneration, remunerationIndex) => {
                   return (
                     <ShelfPositionRow
+                      key = {remunerationIndex} 
+                      index = {remunerationIndex}
+                      row={remuneration} />
+                  );
+                })
+                  : 
+                  <></>
+            
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+          */}
+
+          <Typography>больше продаж категории товаров.</Typography>
+          <TableContainer className={style.Paper} component={Paper}>
+            <Table aria-label="collapsible table" className={style.Paperbody}>
+              <TableHead>
+                <TableRow className={style.Paperhead}>
+                  {/* <TableCell /> */}
+                  <TableCell>категория</TableCell>
+                  <TableCell align="right">продано, шт</TableCell>
+                  <TableCell align="right">премия, руб</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(typeof filteringCategoryMotivations === 'object') ? filteringCategoryMotivations.map((remuneration, remunerationIndex) => {
+                  return (
+                    <ShelfCategoryRow
                       key = {remunerationIndex} 
                       index = {remunerationIndex}
                       row={remuneration} />
@@ -338,12 +450,12 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
           <Divider sx={{marginTop: 1, marginBottom: 1}}/>
+          {/* 
           <Typography>план продаж конкретного товара.</Typography>
           <TableContainer className={style.Paper} component={Paper}>
             <Table aria-label="collapsible table" className={style.Paperbody}>
               <TableHead>
                 <TableRow className={style.Paperhead}>
-                  {/* <TableCell /> */}
                   <TableCell>товар</TableCell>
                   <TableCell align="right">продано, шт</TableCell>
                   <TableCell align="right">премия, руб</TableCell>
@@ -353,6 +465,35 @@ const Dashboard = () => {
                 {(typeof shelfPositionMotivationsSettings === 'object') ? shelfPositionMotivationsSettings.map((remuneration, remunerationIndex) => {
                   return (
                     <ShelfPositionRow
+                      plan
+                      key = {remunerationIndex} 
+                      index = {remunerationIndex}
+                      row={remuneration} />
+                  );
+                })
+                  : 
+                  <></>
+            
+                }
+              </TableBody>
+            </Table>
+          </TableContainer> 
+          */}
+          <Typography>план продаж по категории товаров.</Typography>
+          <TableContainer className={style.Paper} component={Paper}>
+            <Table aria-label="collapsible table" className={style.Paperbody}>
+              <TableHead>
+                <TableRow className={style.Paperhead}>
+                  {/* <TableCell /> */}
+                  <TableCell>категория</TableCell>
+                  <TableCell align="right">продано, шт</TableCell>
+                  <TableCell align="right">премия, руб</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(typeof shelfCategoryMotivationsSettings === 'object') ? shelfCategoryMotivationsSettings.map((remuneration, remunerationIndex) => {
+                  return (
+                    <ShelfCategoryRow
                       plan
                       key = {remunerationIndex} 
                       index = {remunerationIndex}
@@ -420,12 +561,12 @@ const Dashboard = () => {
             </Table>
           </TableContainer>
           <Divider sx={{marginTop: 1, marginBottom: 1}}/>
+          {/* 
           <Typography>допродайте конкретного товара:</Typography>
           <TableContainer className={style.Paper} component={Paper}>
             <Table aria-label="collapsible table" className={style.Paperbody}>
               <TableHead>
                 <TableRow className={style.Paperhead}>
-                  {/* <TableCell /> */}
                   <TableCell>товар</TableCell>
                   <TableCell align="right">ещё продать, шт</TableCell>
                   <TableCell align="right">будет премия, руб</TableCell>
@@ -433,6 +574,34 @@ const Dashboard = () => {
               </TableHead>
               <TableBody>
                 {(typeof filteringLeftShelfMotivations === 'object') ? filteringLeftShelfMotivations.map((remuneration, remunerationIndex) => {
+                  return (
+                    <ShelfPositionRow
+                      key = {remunerationIndex} 
+                      index = {remunerationIndex}
+                      row={remuneration} />
+                  );
+                })
+                  : 
+                  <></>
+            
+                }
+              </TableBody>
+            </Table>
+          </TableContainer> 
+          */}
+          <Typography>допродайте товаров из категорий:</Typography>
+          <TableContainer className={style.Paper} component={Paper}>
+            <Table aria-label="collapsible table" className={style.Paperbody}>
+              <TableHead>
+                <TableRow className={style.Paperhead}>
+                  {/* <TableCell /> */}
+                  <TableCell>категория</TableCell>
+                  <TableCell align="right">ещё продать, шт</TableCell>
+                  <TableCell align="right">будет премия, руб</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {(typeof filteringLeftCategoryMotivations === 'object') ? filteringLeftCategoryMotivations.map((remuneration, remunerationIndex) => {
                   return (
                     <ShelfPositionRow
                       key = {remunerationIndex} 

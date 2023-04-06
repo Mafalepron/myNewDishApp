@@ -13,6 +13,7 @@ class App extends React.Component {
       name: '',
       password: '',
       products: [],
+      types: {},
       remains: [],
       axiLogInCashier: this.axiLogInCashier,
       userExit: this.userExit,
@@ -33,7 +34,11 @@ class App extends React.Component {
         for (let product of result.products) {
           newProducts[product.id] = product;
         };
-        this.setState({products: newProducts}); 
+        let newTypes = {};        
+        for (let type of result.types) {
+          newTypes[type.id] = type;
+        };
+        this.setState({products: newProducts, types: newTypes}); 
         this.axiGetRemains(result.token);
         this.setState({token: result.token});
         return ('авторизация прошла успешно');
