@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import style from './index.module.css';
 import CheckIcon from '@mui/icons-material/Check';
 import postInvoices from '../../functions/postInvoices';
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -13,7 +14,7 @@ import postInvoices from '../../functions/postInvoices';
 const MenuEndRemains = () => {
   const context = useContext(MyContext);
   const [invoice, setInvoice] = useState([...context.remains]);
-
+  const [isWaiting, setIsWaiting] = useState(false);
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
     let newReturnInvoice = [...invoice];
@@ -31,15 +32,18 @@ const MenuEndRemains = () => {
   };
 
   const handlePressOk = async () => {
+    setIsWaiting(true);
     let result = await postInvoices('setEndRemainsInvoice.php', context.token, invoice);
+    setIsWaiting(false);
     if (result.type === 'no_authorized') {
       if(typeof context.userExit === 'function'){
         context.userExit();
       }
-    } else {
+    } 
+    if (result.type === 'approved') {
       if (typeof result.remains === 'object'){
         if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains, result.isOpen);
+          context.setRemainsState([...result.remains], result.isOpen, result.point);
         }
       }
     }
@@ -54,13 +58,19 @@ const MenuEndRemains = () => {
       <EndRemainsTable
         invoice={invoice}
         onChangeQuantity={onChangeQuantity}/>
-      <Button variant="contained" 
-        endIcon={<CheckIcon />}  
-        onClick={handlePressOk}
-        sx={stylesObj.SendRemainsButton}
-      > 
+      {isWaiting?
+        <CircularProgress
+          sx={stylesObj.SendRemainsButton}/>
+        :
+        <Button variant="contained" 
+          endIcon={<CheckIcon />}  
+          onClick={handlePressOk}
+          sx={stylesObj.SendRemainsButton}
+        > 
         завершить смену
-      </Button>
+        </Button>
+      }
+      
     </div>
   );
 };

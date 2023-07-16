@@ -152,8 +152,10 @@ export default function Content() {
   const [value, setValue] = React.useState(0);
 
   React.useEffect(()=>{
-    if(!context.isOpenWorkDay){
+    if(+context.isOpenWorkDay === 0){
       setValue(1);
+    }else{
+      setValue(0);
     }
   },[context.isOpenWorkDay]);
 

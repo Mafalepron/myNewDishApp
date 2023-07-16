@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import { AlertModal } from '../../components/authorization/AlertModal';
 import postInvoices from '../../functions/postInvoices';
+import { Fragment } from 'react';
+import { CircularProgress } from '@mui/material';
 
 
 
@@ -15,6 +17,7 @@ const MenuReturnsGoods = () => {
   const [returnInvoice, setReturnInvoice] = useState([]);
   const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
   const [isButtonShow, setIsButtonShow] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
 
   const setNullRemains = () => {
     let newReturnInvoice = [];
@@ -46,6 +49,7 @@ const MenuReturnsGoods = () => {
   };
 
   const handlePressOk = async () => {
+    setIsWaiting(true);
     let postReturnInvoice = [];
     returnInvoice.map((item, index)=>{
       if(item.quantity>0){
@@ -60,12 +64,13 @@ const MenuReturnsGoods = () => {
     } else {
       if (typeof result.remains === 'object'){
         if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains, result.isOpen);
+          context.setRemainsState(result.remains, result.isOpen, result.point);
         }
         setIsModalCompleteOpen(true);
       }
       setNullRemains();
     }
+    setIsWaiting(false);
   };
 
   const checkValidInvoice = (newReturnInvoice) => {
@@ -102,13 +107,21 @@ const MenuReturnsGoods = () => {
         onChangeComment={onChangeComment}
       />
       {isButtonShow &&
-      <Button variant="contained" 
-        endIcon={<ReplyAllIcon/>}  
-        onClick={handlePressOk}
-        sx={stylesObj.SendRemainsButton}
-      > 
-        вернуть
-      </Button>
+      <Fragment>
+        {isWaiting ? 
+          <CircularProgress
+            sx={stylesObj.SendRemainsButton}
+          />
+          :
+          <Button variant="contained" 
+            endIcon={<ReplyAllIcon/>}  
+            onClick={handlePressOk}
+            sx={stylesObj.SendRemainsButton}
+          > 
+          вернуть
+          </Button>
+        }
+      </Fragment>
       }
     </div>
   );
