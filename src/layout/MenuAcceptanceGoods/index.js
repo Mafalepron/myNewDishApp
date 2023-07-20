@@ -17,11 +17,12 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 import { AlertModal } from '../../components/authorization/AlertModal';
-import { Divider, Typography } from '@mui/material';
+import { CircularProgress, Divider, Typography } from '@mui/material';
 
 
 import moment from 'moment';
 import 'moment/locale/ru';
+import { Fragment } from 'react';
 
 const MenuAcceptanceGoods = () => {
   const context = useContext(MyContext);
@@ -29,6 +30,7 @@ const MenuAcceptanceGoods = () => {
   const [invoice, setInvoice] = useState([]);
   const [basisInvoice, setBasisInvoice] = useState(0);
   const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
   
   const [invoicesArr, setInvoicesArr] = useState({});
   const [shipmentOrders, setShipmentOrders] = useState([]);
@@ -43,6 +45,7 @@ const MenuAcceptanceGoods = () => {
   };
 
   const axiGetShipmentInvoice = () => {
+    setIsWaiting(true);
     axi('getShipmentInvoice.php', '', { token: context.token }).then((result) => { 
       if (result.type === 'no_authorized') {
         alert('авторизация не прошла');
@@ -53,7 +56,7 @@ const MenuAcceptanceGoods = () => {
       setInvoice(result?.invoicesСontents?.[invoiceId]);
       setBasisInvoice(invoiceId);
       console.log(result?.invoicesСontents?.[invoiceId]);
-      
+      setIsWaiting(false);
     }, 
     (e) => {
       console.log(e);
@@ -76,7 +79,7 @@ const MenuAcceptanceGoods = () => {
     } else {
       if (typeof result.remains === 'object'){
         if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains, result.isOpen);
+          context.setRemainsState(result.remains, result.isOpen, result.point);
         }
         setIsModalCompleteOpen(true);
       }
@@ -128,13 +131,20 @@ const MenuAcceptanceGoods = () => {
         </Typography>
       }
       {invoice &&
-        <Button variant="contained" 
-          endIcon={<AddIcon />} 
-          onClick={handlePressOk}
-          sx={stylesObj.SendRemainsButton}
-        > 
-          принять
-        </Button>
+        <Fragment>
+          {isWaiting ?
+            <CircularProgress
+              sx={stylesObj.SendRemainsButton}/>
+            :
+            <Button variant="contained" 
+              endIcon={<AddIcon />} 
+              onClick={handlePressOk}
+              sx={stylesObj.SendRemainsButton}
+            > 
+              принять
+            </Button>
+          }
+        </Fragment>
       }
     </div>
   );

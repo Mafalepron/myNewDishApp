@@ -13,12 +13,13 @@ class App extends React.Component {
       name: '',
       password: '',
       products: [],
+      types: {},
       remains: [],
       axiLogInCashier: this.axiLogInCashier,
       userExit: this.userExit,
       axiGetRemains: this.axiGetRemains,
       setRemainsState: this.setRemainsState,
-      isOpenWorkDay: true,
+      isOpenWorkDay: 0,
       setIsOpenWorkDay: this.setIsOpenWorkDay,
       point: {},
     };
@@ -33,7 +34,11 @@ class App extends React.Component {
         for (let product of result.products) {
           newProducts[product.id] = product;
         };
-        this.setState({products: newProducts}); 
+        let newTypes = {};        
+        for (let type of result.types) {
+          newTypes[type.id] = type;
+        };
+        this.setState({products: newProducts, types: newTypes}); 
         this.axiGetRemains(result.token);
         this.setState({token: result.token});
         return ('авторизация прошла успешно');
@@ -99,17 +104,17 @@ class App extends React.Component {
   };
 
   setRemainsState = (remains, isOpen = 0, point) => {
+    this.setState({isOpenWorkDay: isOpen});
     if (remains){
-      this.setState({remains: remains});
+      this.setState({remains: [ ... remains]});
     }else{
       alert('остатки не подгрузились!');
     }
-    if (point.id){
+    if (point && point.id){
       this.setState({point: point});
     }else{
       alert('данные о точке не подгрузились!');
     }
-    this.setState({isOpenWorkDay: isOpen});
   };
 
   //временно авторизируемся под тестовым пользователем чтобы дальше работать. 
