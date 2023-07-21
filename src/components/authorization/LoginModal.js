@@ -164,7 +164,7 @@ export default function LoginModal(props) {
               label="Логин"
               onChange={handleChangeLoginList}
             >
-              {loginList.length > 0
+              {typeof loginList === 'object' && loginList.length > 0
                 ? loginList.map((item, index) => (
                   <MenuItem key={index} value={item}>
                     {item}
