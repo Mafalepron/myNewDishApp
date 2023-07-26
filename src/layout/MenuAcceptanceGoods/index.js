@@ -51,7 +51,13 @@ const MenuAcceptanceGoods = () => {
         alert('авторизация не прошла');
       } 
       let invoiceId = +result?.shipmentOrders?.[0]?.id;
-      setInvoicesArr(result?.invoicesСontents);
+
+      if (typeof result?.invoicesСontents === 'object'){
+        setInvoicesArr(result?.invoicesСontents);
+      }else{
+        setInvoicesArr({});
+      }
+      
       setShipmentOrders(result?.shipmentOrders);
       setInvoice(result?.invoicesСontents?.[invoiceId]);
       setBasisInvoice(invoiceId);
@@ -110,12 +116,15 @@ const MenuAcceptanceGoods = () => {
             label="Накладная"
             onChange={handleChangeInvoice}
           >
-            {shipmentOrders.map((item, index)=>
-              <MenuItem 
-                key={index} 
-                value={item.id}>
-                <b>№{item.id}</b> от {moment(+item.time * 1000).format('LLL')} 
-              </MenuItem>)}
+            {typeof shipmentOrders === 'object' ?
+              shipmentOrders.map((item, index)=>
+                <MenuItem 
+                  key={index} 
+                  value={item.id}>
+                  <b>№{item.id}</b> от {moment(+item.time * 1000).format('LLL')} 
+                </MenuItem>)
+              : null
+            }
           </Select>
         </FormControl>
         <Divider sx={{marginTop: 1, marginBottom: 1}}/>
