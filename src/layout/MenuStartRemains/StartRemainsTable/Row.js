@@ -54,7 +54,7 @@ const Row = (props) => {
               shrink: true,
             }}
             size="small"
-            sx={{width: '380px', backgroundColor: '#F2F7AA',
+            sx={{minWidth: '120px', width: '380px', backgroundColor: '#F2F7AA',
               '@media screen and (max-width: 400px)': {
                 marginRight: '20%',
                 width: '380px',

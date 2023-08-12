@@ -40,36 +40,34 @@ export default function ReturnsGoodsTable(props) {
   };
 
   return (
-    <div className={style.MenuThreeTable}>
-      <TableContainer className={style.Paper} component={Paper}>
-        <Table aria-label="collapsible table" className={style.Paperbody}>
-          <TableHead>
-            <TableRow className={style.Paperhead}>
-              <TableCell />
-              <TableCell>наименование</TableCell>
-              <TableCell align="right">количество</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {(typeof props.returnInvoice === 'object') ? props.returnInvoice.map((remain, remainIndex) => {
-              let row = createData(products[remain.product]?.name, remain.quantity, remain.comment);
-              return (
-                <Row 
-                  key={remainIndex} 
-                  index={remainIndex}
-                  row={row} 
-                  onChangeQuantity={onChangeQuantity}
-                  onChangeComment={onChangeComment}
-                />
-              );
-            })
-              : 
-              <></>
+    <TableContainer className={style.Paper} style={{marginLeft: 20}} component={Paper}>
+      <Table aria-label="collapsible table" className={style.Paperbody}>
+        <TableHead>
+          <TableRow className={style.Paperhead}>
+            <TableCell />
+            <TableCell>наименование</TableCell>
+            <TableCell align="right">количество</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(typeof props.returnInvoice === 'object') ? props.returnInvoice.map((remain, remainIndex) => {
+            let row = createData(products[remain.product]?.name, remain.quantity, remain.comment);
+            return (
+              <Row 
+                key={remainIndex} 
+                index={remainIndex}
+                row={row} 
+                onChangeQuantity={onChangeQuantity}
+                onChangeComment={onChangeComment}
+              />
+            );
+          })
+            : 
+            <></>
             
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+          }
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

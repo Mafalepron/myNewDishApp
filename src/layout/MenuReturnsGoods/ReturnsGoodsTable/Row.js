@@ -61,7 +61,7 @@ const Row = (props) => {
             }}
             size="small"
             sx={{
-              width: '80px', 
+              minWidth: '120px', 
               backgroundColor: '#FEDDC9',
               '@media screen and (max-width: 450px)': {
                 marginRight: '70%',
@@ -72,7 +72,7 @@ const Row = (props) => {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={3}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
