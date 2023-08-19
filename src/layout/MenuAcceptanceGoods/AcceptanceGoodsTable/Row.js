@@ -49,6 +49,7 @@ const Row = (props) => {
             value={row.quantity}
             type="number"
             onChange={handleChangeQuantity}
+            onFocus={e => e.target.select()}
             InputLabelProps={{
               shrink: true,
             }}

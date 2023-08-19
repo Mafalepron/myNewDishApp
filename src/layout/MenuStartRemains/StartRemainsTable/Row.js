@@ -50,6 +50,7 @@ const Row = (props) => {
             value={row.quantity}
             type="number"
             onChange={handleChangeQuantity}
+            onFocus={e => e.target.select()}
             InputLabelProps={{
               shrink: true,
             }}
@@ -72,8 +73,9 @@ const Row = (props) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                  History
+                  История (будет в следующий версиях)
               </Typography>
+              {/* 
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -98,6 +100,7 @@ const Row = (props) => {
                   ))}
                 </TableBody>
               </Table>
+              */}
             </Box>
           </Collapse>
         </TableCell>

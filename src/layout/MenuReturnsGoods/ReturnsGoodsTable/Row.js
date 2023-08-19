@@ -83,6 +83,7 @@ const Row = (props) => {
                 value={row.comment}
                 type="text"
                 onChange={handleChangeComment}
+                onFocus={e => e.target.select()}
                 InputLabelProps={{
                   shrink: true,
                 }}
