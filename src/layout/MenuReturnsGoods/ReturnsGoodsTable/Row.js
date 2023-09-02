@@ -56,6 +56,7 @@ const Row = (props) => {
             value={row.quantity}
             type="number"
             onChange={handleChangeQuantity}
+            onFocus={e => e.target.select()}
             InputLabelProps={{
               shrink: true,
             }}
@@ -83,7 +84,6 @@ const Row = (props) => {
                 value={row.comment}
                 type="text"
                 onChange={handleChangeComment}
-                onFocus={e => e.target.select()}
                 InputLabelProps={{
                   shrink: true,
                 }}

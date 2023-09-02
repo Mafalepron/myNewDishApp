@@ -17,7 +17,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 import { AlertModal } from '../../components/authorization/AlertModal';
-import { CircularProgress, Divider, Typography } from '@mui/material';
+import { Alert, AlertTitle, CircularProgress, Divider, Typography } from '@mui/material';
 
 
 import moment from 'moment';
@@ -34,6 +34,7 @@ const MenuAcceptanceGoods = () => {
   
   const [invoicesArr, setInvoicesArr] = useState({});
   const [shipmentOrders, setShipmentOrders] = useState([]);
+  const [errorText, setErrorText] = useState(''); 
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -46,6 +47,7 @@ const MenuAcceptanceGoods = () => {
 
   const axiGetShipmentInvoice = () => {
     setIsWaiting(true);
+
     axi('getShipmentInvoice.php', '', { token: context.token }).then((result) => { 
       if (result.type === 'no_authorized') {
         alert('авторизация не прошла');
@@ -77,17 +79,22 @@ const MenuAcceptanceGoods = () => {
   };
 
   const handlePressOk = async () => {
+    setErrorText('');
     let result = await postInvoices('setAcceptanceGoodsInvoice.php', context.token, invoice, basisInvoice);
     if (result.type === 'no_authorized') {
       if(typeof context.userExit === 'function'){
         context.userExit();
       }
     } else {
-      if (typeof result.remains === 'object'){
-        if(typeof context.setRemainsState === 'function'){
-          context.setRemainsState(result.remains, result.isOpen, result.point);
+      if (result.error){
+        setErrorText(result.error);
+      }else{
+        if (typeof result.remains === 'object'){
+          if(typeof context.setRemainsState === 'function'){
+            context.setRemainsState(result.remains, result.isOpen, result.point);
+          }
+          setIsModalCompleteOpen(true);
         }
-        setIsModalCompleteOpen(true);
       }
       axiGetShipmentInvoice();
     }
@@ -105,6 +112,16 @@ const MenuAcceptanceGoods = () => {
         buttonText="продолжить"
         onClose={setIsModalCompleteOpen}
       />
+      }
+      {errorText ?
+        <Alert 
+          severity="error" 
+          sx={{margin: '8px', width: '100%'}}
+        >
+          <AlertTitle>Ошибка</AlertTitle>
+          <strong>{errorText}</strong>
+        </Alert>
+        : ''
       }
       <div className={childrenStyles.MenuTwoTable}>
         <FormControl>
