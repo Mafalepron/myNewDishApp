@@ -20,11 +20,13 @@ const Row = (props) => {
   
   const handleChangeQuantity = (e) => {
     if(typeof props.onChangeQuantity === 'function'){
-      props.onChangeQuantity(e.target.value, props.index);
-      if (+e.target.value > 0){
+      let naturalInt = Math.round(+e.target.value);
+      if (naturalInt > 0){
         setOpen(true);
+        props.onChangeQuantity(naturalInt, props.index);
       }else{
         setOpen(false);
+        props.onChangeQuantity(0, props.index);
       }
     };
   };
@@ -55,6 +57,7 @@ const Row = (props) => {
             id="outlined-number"
             value={row.quantity}
             type="number"
+            inputProps = {{min: 0, step: 1}}
             onChange={handleChangeQuantity}
             onFocus={e => e.target.select()}
             InputLabelProps={{
@@ -62,12 +65,13 @@ const Row = (props) => {
             }}
             size="small"
             sx={{
-              minWidth: '120px', 
+              //minWidth: '120px', 
+              width: '80px',
               backgroundColor: '#FEDDC9',
-              '@media screen and (max-width: 450px)': {
-                marginRight: '70%',
-                width: '60%'
-              },
+              //'@media screen and (max-width: 450px)': {
+              //marginRight: '70%',
+              //width: '60%'
+              //},
             }}
           />
         </TableCell>
