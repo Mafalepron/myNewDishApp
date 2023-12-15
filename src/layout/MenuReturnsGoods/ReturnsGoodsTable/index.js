@@ -52,15 +52,19 @@ export default function ReturnsGoodsTable(props) {
         <TableBody>
           {(typeof props.returnInvoice === 'object') ? props.returnInvoice.map((remain, remainIndex) => {
             let row = createData(products[remain.product]?.name, remain.quantity, remain.comment);
-            return (
-              <Row 
-                key={remainIndex} 
-                index={remainIndex}
-                row={row} 
-                onChangeQuantity={onChangeQuantity}
-                onChangeComment={onChangeComment}
-              />
-            );
+            if (props.isHideEmpty && +row.quantity === 0){
+              return('');
+            }else{
+              return (
+                <Row 
+                  key={remainIndex} 
+                  index={remainIndex}
+                  row={row} 
+                  onChangeQuantity={onChangeQuantity}
+                  onChangeComment={onChangeComment}
+                />
+              );
+            }
           })
             : 
             <></>

@@ -17,8 +17,7 @@ import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import postInvoices from '../../functions/postInvoices';
 import { AlertModal } from '../../components/authorization/AlertModal';
-import { Alert, AlertTitle, CircularProgress, Divider, Typography } from '@mui/material';
-
+import { Alert, AlertTitle, CircularProgress, Divider, Typography, Checkbox, FormControlLabel } from '@mui/material';
 
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -35,6 +34,13 @@ const MenuAcceptanceGoods = () => {
   const [invoicesArr, setInvoicesArr] = useState({});
   const [shipmentOrders, setShipmentOrders] = useState([]);
   const [errorText, setErrorText] = useState(''); 
+
+  
+  const [isHideEmpty, setHideEmpty] = useState(false);
+  
+  const handleChangeHideEmpty = (event) => {
+    setHideEmpty(event.target.checked);
+  };
 
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
@@ -147,10 +153,19 @@ const MenuAcceptanceGoods = () => {
         <Divider sx={{marginTop: 1, marginBottom: 1}}/>
       </div>
       {invoice ?
-        <AcceptanceGoodsTable 
-          invoice={invoice}
-          onChangeQuantity={onChangeQuantity}
-        />
+        <Fragment>
+          <FormControlLabel
+            control={<Checkbox
+              checked={isHideEmpty}
+              onChange={handleChangeHideEmpty} />}
+            label="Скрывать отсутствующие позиции" 
+            sx = {{margin: 3}}
+          />
+          <AcceptanceGoodsTable
+            invoice={invoice}
+            isHideEmpty={isHideEmpty}
+            onChangeQuantity={onChangeQuantity} />
+        </Fragment>
         : 
         <Typography className={style.text} variant="h6" gutterBottom component="div">
           На ваш адрес пока не отправлено свежей продукции

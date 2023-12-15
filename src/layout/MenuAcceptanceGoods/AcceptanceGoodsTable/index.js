@@ -47,13 +47,17 @@ export default function AcceptanceGoodsTable(props) {
           <TableBody>
             {(typeof props.invoice === 'object') ? props.invoice.map((item, index) => {
               let row = createData(context.products[item.product]?.name, item.quantity, item.comment);
-              return (
-                <Row 
-                  key={index} 
-                  index={index}
-                  row={row}
-                  onChangeQuantity={onChangeQuantity} />
-              );
+              if (props.isHideEmpty && +row.quantity === 0){
+                return('');
+              }else{
+                return (
+                  <Row 
+                    key={index} 
+                    index={index}
+                    row={row}
+                    onChangeQuantity={onChangeQuantity} />
+                );
+              }
             })
               : 
               <></>

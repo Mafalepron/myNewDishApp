@@ -40,12 +40,16 @@ export default function StartRemainsTable(props) {
         <TableBody>
           {(typeof props.invoice === 'object') ? props.invoice.map((remain, remainIndex) => {
             let row = createData(products[remain.product]?.name, remain.quantity);
-            return (
-              <Row key={remainIndex} 
-                index={remainIndex}
-                row={row}
-                onChangeQuantity={onChangeQuantity} />
-            );
+            if (props.isHideEmpty && +row.quantity === 0){
+              return('');
+            }else{
+              return (
+                <Row key={remainIndex} 
+                  index={remainIndex}
+                  row={row}
+                  onChangeQuantity={onChangeQuantity} />
+              );
+            }
           })
             : 
             <></>

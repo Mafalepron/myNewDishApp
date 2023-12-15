@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import style from './index.module.css';
 import CheckIcon from '@mui/icons-material/Check';
 import postInvoices from '../../functions/postInvoices';
-import { CircularProgress } from '@mui/material';
+import { Checkbox, CircularProgress, FormControlLabel } from '@mui/material';
 
 
 
@@ -15,6 +15,13 @@ const MenuEndRemains = () => {
   const context = useContext(MyContext);
   const [invoice, setInvoice] = useState([...context.remains]);
   const [isWaiting, setIsWaiting] = useState(false);
+  
+  
+  const [isHideEmpty, setHideEmpty] = useState(true);
+  
+  const handleChangeHideEmpty = (event) => {
+    setHideEmpty(event.target.checked);
+  };
 
   const onChangeQuantity = (quantityValue, quantityIndex) => {
     let newReturnInvoice = [...invoice];
@@ -55,8 +62,19 @@ const MenuEndRemains = () => {
   
   return(
     <div className={style.table}>
+      <FormControlLabel 
+        control={
+          <Checkbox
+            checked = {isHideEmpty}
+            onChange = {handleChangeHideEmpty}
+          />
+        } 
+        label = "Скрывать отсутствующие позиции"
+        sx = {{margin: 3}}
+      />
       <EndRemainsTable
         invoice={invoice}
+        isHideEmpty={isHideEmpty}
         onChangeQuantity={onChangeQuantity}/>
       {isWaiting?
         <CircularProgress

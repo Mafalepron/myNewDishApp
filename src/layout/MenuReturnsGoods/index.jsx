@@ -8,8 +8,7 @@ import ReplyAllIcon from '@mui/icons-material/ReplyAll';
 import { AlertModal } from '../../components/authorization/AlertModal';
 import postInvoices from '../../functions/postInvoices';
 import { Fragment } from 'react';
-import { CircularProgress } from '@mui/material';
-
+import { Checkbox, CircularProgress, FormControlLabel } from '@mui/material';
 
 
 const MenuReturnsGoods = () => {
@@ -18,6 +17,13 @@ const MenuReturnsGoods = () => {
   const [isModalCompleteOpen, setIsModalCompleteOpen] = useState(false);
   const [isButtonShow, setIsButtonShow] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
+  
+  
+  const [isHideEmpty, setHideEmpty] = useState(false);
+  
+  const handleChangeHideEmpty = (event) => {
+    setHideEmpty(event.target.checked);
+  };
 
   const setNullRemains = () => {
     let newReturnInvoice = [];
@@ -101,8 +107,19 @@ const MenuReturnsGoods = () => {
         onClose={setIsModalCompleteOpen}
       />
       }
+      <FormControlLabel 
+        control={
+          <Checkbox
+            checked = {isHideEmpty}
+            onChange = {handleChangeHideEmpty}
+          />
+        } 
+        label = "Скрывать отсутствующие позиции"
+        sx = {{margin: 3}}
+      />
       <ReturnsGoodsTable 
         returnInvoice={returnInvoice}
+        isHideEmpty={isHideEmpty}
         onChangeQuantity={onChangeQuantity}
         onChangeComment={onChangeComment}
       />
